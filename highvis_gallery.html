@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HVAC エラーコード検索 - ホーム画面【超高視認性】8選</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090c10;
+      --card-bg: #131720;
+      --border: #232a38;
+      --accent: #f59e0b;
+      --accent-orange: #ea580c;
+      --text: #f0f6fc;
+      --text-muted: #8b949e;
+      --text-sub: #cbd5e1;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+      padding: 24px 16px 80px;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 36px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .badge-top {
+      display: inline-block;
+      background: rgba(234, 88, 12, 0.15);
+      color: #fb923c;
+      border: 1px solid rgba(234, 88, 12, 0.4);
+      padding: 4px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: clamp(22px, 4vw, 32px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    header p {
+      color: var(--text-muted);
+      font-size: 14.5px;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #1c2331;
+      color: #38bdf8;
+      text-decoration: none;
+      padding: 9px 16px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
+      border: 1px solid #334155;
+      transition: all 0.2s;
+    }
+    .nav-btn:hover {
+      background: #283347;
+      border-color: #38bdf8;
+    }
+
+    /* Comparison Banner */
+    .banner {
+      background: #151a24;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 36px;
+      text-align: center;
+    }
+    .banner img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    }
+
+    /* Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 24px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: #f59e0b;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+    }
+    .card-top {
+      position: relative;
+      background: #0d1118;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .icon-preview {
+      width: 170px;
+      height: 170px;
+      border-radius: 38px;
+      overflow: hidden;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.1);
+      transition: transform 0.2s;
+    }
+    .card:hover .icon-preview {
+      transform: scale(1.03);
+    }
+    .icon-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .number-tag {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: #ea580c;
+      color: #fff;
+      font-family: 'Chakra Petch', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 3px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+    }
+
+    /* Actual phone 60px simulation badge */
+    .mini-sim-box {
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(0,0,0,0.6);
+      border: 1px solid #334155;
+      padding: 6px 12px;
+      border-radius: 10px;
+    }
+    .mini-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 11px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.15);
+      flex-shrink: 0;
+    }
+    .mini-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .mini-label {
+      font-size: 11px;
+      color: #94a3b8;
+      line-height: 1.3;
+    }
+    .mini-label strong {
+      color: #fbbf24;
+      display: block;
+    }
+
+    .card-body {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .card-subtitle {
+      font-size: 12.5px;
+      color: #fbbf24;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .meta-list {
+      list-style: none;
+      font-size: 13px;
+      margin-bottom: 18px;
+      flex: 1;
+    }
+    .meta-list li {
+      margin-bottom: 7px;
+      display: flex;
+      gap: 6px;
+    }
+    .meta-label {
+      color: var(--text-muted);
+      min-width: 80px;
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+    .meta-val {
+      color: var(--text-sub);
+    }
+    .btn-apply {
+      background: #1e293b;
+      color: #fff;
+      border: 1px solid #334155;
+      padding: 11px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+      width: 100%;
+    }
+    .btn-apply:hover {
+      background: #ea580c;
+      border-color: #ea580c;
+      color: #fff;
+    }
+
+    /* Phone simulator with wallpaper switcher */
+    .phone-simulator-section {
+      margin-top: 50px;
+      background: #11151f;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 20px;
+      text-align: center;
+    }
+    .phone-simulator-section h2 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+    .phone-simulator-section p {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+    .wp-controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .wp-btn {
+      background: #1e293b;
+      color: #cbd5e1;
+      border: 1px solid #334155;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .wp-btn.active {
+      background: #ea580c;
+      color: #fff;
+      border-color: #ea580c;
+    }
+
+    .phone-mockup {
+      display: inline-block;
+      width: 310px;
+      background: #000;
+      border: 4px solid #2d3748;
+      border-radius: 40px;
+      padding: 40px 16px 24px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+      position: relative;
+      transition: background 0.3s;
+    }
+    .phone-mockup.wp-dark {
+      background: #0d1117;
+    }
+    .phone-mockup.wp-light {
+      background: linear-gradient(180deg, #93c5fd 0%, #dbeafe 100%);
+    }
+    .phone-mockup.wp-light .mock-name {
+      color: #1e293b;
+      font-weight: 700;
+    }
+    .phone-mockup.wp-photo {
+      background: linear-gradient(135deg, #1e3a5f 0%, #064e3b 50%, #451a03 100%);
+    }
+    .phone-notch {
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 110px;
+      height: 22px;
+      background: #1a202c;
+      border-radius: 12px;
+    }
+    .phone-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px 10px;
+      margin-top: 20px;
+    }
+    .mock-app {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .mock-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: #2d3748;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .mock-icon.featured {
+      box-shadow: 0 0 14px rgba(245, 158, 11, 0.7);
+      border: 1.5px solid #f59e0b;
+    }
+    .mock-icon.featured img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .mock-name {
+      font-size: 10px;
+      color: #fff;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 56px;
+      transition: color 0.2s;
+    }
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #ea580c;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+      z-index: 9999;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="badge-top">HOME SCREEN HIGH-VISIBILITY EDITION</div>
+    <h1>ホーム画面【超高視認性・ハイビジビリティ】厳選8選</h1>
+    <p>「スマホのホーム画面に置いたときに見づらい」という課題を徹底解決。アイコンを60px（実寸約1.2cm）に極小縮小しても<strong>「巨大ERR文字」「極太外周バンパー」「3連空調ルーバー」</strong>がクッキリ際立ち、一瞬で認識できるように設計し直しました。</p>
+    <div class="nav-links">
+      <a href="index.html" class="nav-btn">← エラーコード検索ツールに戻る</a>
+      <a href="icons_v4_highvis/highvis_comparison_grid.jpg" target="_blank" class="nav-btn">🖼️ 超高視認8種 比較シート</a>
+      <a href="rugged_gallery.html" class="nav-btn">🛠️ 現場タフネス10選を見る</a>
+    </div>
+  </header>
+
+  <!-- Banner -->
+  <div class="banner">
+    <a href="icons_v4_highvis/highvis_comparison_grid.jpg" target="_blank">
+      <img src="icons_v4_highvis/highvis_comparison_grid.jpg" alt="超高視認性8種比較シート">
+    </a>
+    <p style="color: var(--text-muted); font-size: 13px; margin-top: 10px;">タップすると実寸大（1780×1080px）で右下の「スマホ実寸60pxプレビュー」まで確認できます</p>
+  </div>
+
+  <!-- Cards -->
+  <div class="cards-grid">
+
+    <!-- Pattern HV01 -->
+    <div class="card" id="card-HV01">
+      <div class="card-top">
+        <span class="number-tag">#HV01</span>
+        <div class="icon-preview">
+          <img src="icons_v4_highvis/hv_01_mega_field_tester.jpg" alt="Pattern HV01">
+        </div>
+        <div class="mini-sim-box">
+          <div class="mini-icon">
+            <img src="icons_v4_highvis/hv_01_mega_field_tester.jpg" alt="HV01 Mini">
+          </div>
+          <div class="mini-label">
+            <strong>実寸60px表示</strong>
+            黄枠 & 琥珀LCDが直感認識
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">メガERR・タフネステスター</h2>
+        <div class="card-subtitle">元祖#02のズーム拡大 ＋ 極太黄色外枠で全壁紙対応</div>
+        <ul class="meta-list">
+          <li><span class="meta-label">視認性工夫:</span><span class="meta-val">画面を24%ズームアップ。中央の琥珀色LCDと「ERR」文字を最大化</span></li>
+          <li><span class="meta-label">外周ガード:</span><span class="meta-val">高彩度イエローの太枠を追加し、黒・白・写真どんな壁紙でも輪郭が消えない</span></li>
+          <li><span class="meta-label">印象:</span><span class="meta-val">元祖#02の無骨な質感を保ちつつ、ホーム画面での埋もれを完全解消</span></li>
+        </ul>
+        <button class="btn-apply" onclick="selectPattern('HV01', 'hv_01_mega_field_tester.jpg')">✓ このデザイン（#HV01）を選択</button>
+      </div>
+    </div>
+
+    <!-- Pattern HV02 -->
+    <div class="card" id="card-HV02">
+      <div class="card-top">
+        <span class="number-tag">#HV02</span>
+        <div class="icon-preview">
+          <img src="icons_v4_highvis/hv_02_fullscreen_cat_yellow.jpg" alt="Pattern HV02">
+        </div>
+        <div class="mini-sim-box">
+          <div class="mini-icon">
+            <img src="icons_v4_highvis/hv_02_fullscreen_cat_yellow.jpg" alt="HV02 Mini">
+          </div>
+          <div class="mini-label">
+            <strong>実寸60px表示</strong>
+            画面占有率最大・最強の読みやすさ
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">フルスクリーンLCD・CATイエロー</h2>
+        <div class="card-subtitle">画面占有率65% ＋ 巨大ERR文字 ＋ 3連太ルーバー</div>
+        <ul class="meta-list">
+          <li><span class="meta-label">視認性工夫:</span><span class="meta-val">無駄な余白を全廃。アイコンの65%が漆黒LCD画面になり文字サイズ最大</span></li>
+          <li><span class="meta-label">空調要素:</span><span class="meta-val">上部に太く鮮明な3連空調ルーバースリットを配置し空調ツールと即断</span></li>
+          <li><span class="meta-label">印象:</span><span class="meta-val">腕を伸ばした位置や炎天下でも一番文字がハッキリ読める決定版</span></li>
+        </ul>
+        <button class="btn-apply" onclick="selectPattern('HV02', 'hv_02_fullscreen_cat_yellow.jpg')">✓ このデザイン（#HV02）を選択</button>
+      </div>
+    </div>
+
+    <!-- Pattern HV03 -->
+    <div class="card" id="card-HV03">
+      <div class="card-top">
+        <span class="number-tag">#HV03</span>
+        <div class="icon-preview">
+          <img src="icons_v4_highvis/hv_03_fluke_highcontrast.jpg" alt="Pattern HV03">
+        </div>
+        <div class="mini-sim-box">
+          <div class="mini-icon">
+            <img src="icons_v4_highvis/hv_03_fluke_highcontrast.jpg" alt="HV03 Mini">
+          </div>
+          <div class="mini-label">
+            <strong>実寸60px表示</strong>
+            JIS安全色イエローが強烈に目立つ
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">フルーク調 ハイコントラスト</h2>
+        <div class="card-subtitle">JIS安全色イエロー外装 ＋ 漆黒LCD ＋ 太字ダイヤル</div>
+        <ul class="meta-list">
+          <li><span class="meta-label">視認性工夫:</span><span class="meta-val">R03をズームし、黄色と黒のコントラスト比を極限まで引き締め</span></li>
+          <li><span class="meta-label">外周ガード:</span><span class="meta-val">厚手のフルークイエローバンパーで輪郭をクッキリ強調</span></li>
+          <li><span class="meta-label">印象:</span><span class="meta-val">プロ測定器の王道スタイル。黄色と黒の警告配色で瞬時に目にとまる</span></li>
+        </ul>
+        <button class="btn-apply" onclick="selectPattern('HV03', 'hv_03_fluke_highcontrast.jpg')">✓ このデザイン（#HV03）を選択</button>
+      </div>
+    </div>
+
+    <!-- Pattern HV04 -->
+    <div class="card" id="card-HV04">
+      <div class="card-top">
+        <span class="number-tag">#HV04</span>
+        <div class="icon-preview">
+          <img src="icons_v4_highvis/hv_04_safety_orange_pro.jpg" alt="Pattern HV04">
+        </div>
+        <div class="mini-sim-box">
+          <div class="mini-icon">
+            <img src="icons_v4_highvis/hv_04_safety_orange_pro.jpg" alt="HV04 Mini">
+          </div>
+          <div class="mini-label">
+            <strong>実寸60px表示</strong>
+            テーマカラー連動・夜間もビビッド
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">セーフティオレンジ・プロタフネス</h2>
+        <div class="card-subtitle">ツール連動の高彩度オレンジ ＋ 発光ゴールドERR</div>
+        <ul class="meta-list">
+          <li><span class="meta-label">視認性工夫:</span><span class="meta-val">アプリ本体のテーマ色「オレンジ」と100%合致する極太バンパー</span></li>
+          <li><span class="meta-label">画面構成:</span><span class="meta-val">漆黒の液晶に温かみのあるゴールド「ERR」が浮かび上がり視認性抜群</span></li>
+          <li><span class="meta-label">印象:</span><span class="meta-val">アプリを開いた時の画面色と一体感があり、暗所や夜間でも視認しやすい</span></li>
+        </ul>
+        <button class="btn-apply" onclick="selectPattern('HV04', 'hv_04_safety_orange_pro.jpg')">✓ このデザイン（#HV04）を選択</button>
+      </div>
+    </div>
+
+    <!-- Pattern HV05 -->
+    <div class="card" id="card-HV05">
+      <div class="card-top">
+        <span class="number-tag">#HV05</span>
+        <div class="icon-preview">
+          <img src="icons_v4_highvis/hv_05_manifold_highvis.jpg" alt="Pattern HV05">
+        </div>
+        <div class="mini-sim-box">
+          <div class="mini-icon">
+            <img src="icons_v4_highvis/hv_05_manifold_highvis.jpg" alt="HV05 Mini">
+          </div>
+          <div class="mini-label">
+            <strong>実寸60px表示</strong>
+            青赤の冷媒リングが小さくても識別可能
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">デュアルマニホールド・太線ハイビズ</h2>
+        <div class="card-subtitle">青低圧/赤高圧リング太線化 ＋ 拡大デジタルERR</div>
+        <ul class="meta-list">
+          <li><span class="meta-label">視認性工夫:</span><span class="meta-val">R05のゲージ目盛をクローズアップし、左右の青・赤リングを太く鮮やかに</span></li>
+          <li><span class="meta-label">中央文字:</span><span class="meta-val">中央のデジタル「ERR」を約1.5倍に拡大し、極小サイズでも判読可能</span></li>
+          <li><span class="meta-label">印象:</span><span class="meta-val">空調冷媒マニホールドのプロ仕様デザインを維持したまま視認性アップ</span></li>
+        </ul>
+        <button class="btn-apply" onclick="selectPattern('HV05', 'hv_05_manifold_highvis.jpg')">✓ このデザイン（#HV05）を選択</button>
+      </div>
+    </div>
+
+    <!-- Pattern HV06 -->
+    <div class="card" id="card-HV06">
+      <div class="card-top">
+        <span class="number-tag">#HV06</span>
+        <div class="icon-preview">
+          <img src="icons_v4_highvis/hv_06_hazard_alert_highvis.jpg" alt="Pattern HV06">
+        </div>
+        <div class="mini-sim-box">
+          <div class="mini-icon">
+            <img src="icons_v4_highvis/hv_06_hazard_alert_highvis.jpg" alt="HV06 Mini">
+          </div>
+          <div class="mini-label">
+            <strong>実寸60px表示</strong>
+            黄黒トラ柄で警告アピール力No.1
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">警戒トラ柄・ハザードアラート</h2>
+        <div class="card-subtitle">極太黄黒コーション外枠 ＋ 非常赤色LED警告</div>
+        <ul class="meta-list">
+          <li><span class="meta-label">視認性工夫:</span><span class="meta-val">外周の斜め警戒ストライプ（トラ柄）を拡大し、輪郭コントラストを最大化</span></li>
+          <li><span class="meta-label">文字発光:</span><span class="meta-val">コンデンサー放熱網の上で「ERR」が鮮明なLED発光</span></li>
+          <li><span class="meta-label">印象:</span><span class="meta-val">「故障・エラー」を最も強烈にアピール。数あるアイコンの中で絶対に迷わない</span></li>
+        </ul>
+        <button class="btn-apply" onclick="selectPattern('HV06', 'hv_06_hazard_alert_highvis.jpg')">✓ このデザイン（#HV06）を選択</button>
+      </div>
+    </div>
+
+    <!-- Pattern HV07 -->
+    <div class="card" id="card-HV07">
+      <div class="card-top">
+        <span class="number-tag">#HV07</span>
+        <div class="icon-preview">
+          <img src="icons_v4_highvis/hv_07_titanium_hex_highvis.jpg" alt="Pattern HV07">
+        </div>
+        <div class="mini-sim-box">
+          <div class="mini-icon">
+            <img src="icons_v4_highvis/hv_07_titanium_hex_highvis.jpg" alt="HV07 Mini">
+          </div>
+          <div class="mini-label">
+            <strong>実寸60px表示</strong>
+            ボルトとオレンジステンシルがくっきり
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">チタンヘキサゴン・極太ステンシル</h2>
+        <div class="card-subtitle">四隅六角ボルト ＋ 太字レーザー彫刻オレンジERR</div>
+        <ul class="meta-list">
+          <li><span class="meta-label">視認性工夫:</span><span class="meta-val">チタン板の細部をズームし、中央のレーザーカットERR文字の太さを強化</span></li>
+          <li><span class="meta-label">外周ガード:</span><span class="meta-val">面取りフレームに発光オレンジのハイライトラインを追加</span></li>
+          <li><span class="meta-label">印象:</span><span class="meta-val">重厚なチタン金属の質感と、遠目からの視認性を両立</span></li>
+        </ul>
+        <button class="btn-apply" onclick="selectPattern('HV07', 'hv_07_titanium_hex_highvis.jpg')">✓ このデザイン（#HV07）を選択</button>
+      </div>
+    </div>
+
+    <!-- Pattern HV08 -->
+    <div class="card" id="card-HV08">
+      <div class="card-top">
+        <span class="number-tag">#HV08</span>
+        <div class="icon-preview">
+          <img src="icons_v4_highvis/hv_08_clamp_highvis.jpg" alt="Pattern HV08">
+        </div>
+        <div class="mini-sim-box">
+          <div class="mini-icon">
+            <img src="icons_v4_highvis/hv_08_clamp_highvis.jpg" alt="HV08 Mini">
+          </div>
+          <div class="mini-label">
+            <strong>実寸60px表示</strong>
+            クランプ爪の赤黒シルエットが明瞭
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">クランプメーター・高コントラスト</h2>
+        <div class="card-subtitle">赤黒の太いクランプ爪 ＋ 画面拡大OVERLOAD警告</div>
+        <ul class="meta-list">
+          <li><span class="meta-label">視認性工夫:</span><span class="meta-val">上部の絶縁クランプ爪の赤黒コントラストを強調し、画面全体を拡大</span></li>
+          <li><span class="meta-label">外周ガード:</span><span class="meta-val">レッドの衝撃ガードラインを外枠に設けて境界をくっきり分離</span></li>
+          <li><span class="meta-label">印象:</span><span class="meta-val">クランプ爪の特徴的な形状が小さくなっても崩れず、電流テスターと一目でわかる</span></li>
+        </ul>
+        <button class="btn-apply" onclick="selectPattern('HV08', 'hv_08_clamp_highvis.jpg')">✓ このデザイン（#HV08）を選択</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Phone Simulator with Wallpaper Switcher -->
+  <div class="phone-simulator-section">
+    <h2>📱 スマホ ホーム画面シミュレーター（壁紙切替テスト付き）</h2>
+    <p>下の「壁紙ボタン」で背景を切り替えて、ダーク壁紙・ライト壁紙・写真壁紙のどれでもクッキリ見えるかテストできます。<br>上の各デザインの「選択ボタン」を押すと、リアルタイムにアプリアイコンが切り替わります。</p>
+    
+    <div class="wp-controls">
+      <button class="wp-btn active" onclick="setWallpaper('dark', this)">⬛ ダーク壁紙（標準）</button>
+      <button class="wp-btn" onclick="setWallpaper('light', this)">⬜ ライト壁紙（青空）</button>
+      <button class="wp-btn" onclick="setWallpaper('photo', this)">📷 写真壁紙（現場背景）</button>
+    </div>
+
+    <div class="phone-mockup wp-dark" id="phone-mockup">
+      <div class="phone-notch"></div>
+      <div class="phone-grid">
+        <div class="mock-app">
+          <div class="mock-icon" style="background:#22c55e;">📞</div>
+          <div class="mock-name">電話</div>
+        </div>
+        <div class="mock-app">
+          <div class="mock-icon" style="background:#3b82f6;">💬</div>
+          <div class="mock-name">LINE</div>
+        </div>
+        <div class="mock-app">
+          <div class="mock-icon" style="background:#6366f1;">✉️</div>
+          <div class="mock-name">メール</div>
+        </div>
+        <div class="mock-app">
+          <div class="mock-icon" style="background:#0284c7;">🌐</div>
+          <div class="mock-name">Safari</div>
+        </div>
+
+        <!-- Featured App Icon -->
+        <div class="mock-app">
+          <div class="mock-icon featured" id="simulated-app-icon">
+            <img src="icons_v4_highvis/hv_02_fullscreen_cat_yellow.jpg" id="sim-icon-img" alt="Active Icon">
+          </div>
+          <div class="mock-name" id="mock-app-label" style="color:#fbbf24; font-weight:700;">空調エラー</div>
+        </div>
+
+        <div class="mock-app">
+          <div class="mock-icon" style="background:#64748b;">📷</div>
+          <div class="mock-name">カメラ</div>
+        </div>
+        <div class="mock-app">
+          <div class="mock-icon" style="background:#f59e0b;">📁</div>
+          <div class="mock-name">ファイル</div>
+        </div>
+        <div class="mock-app">
+          <div class="mock-icon" style="background:#8b5cf6;">⚙️</div>
+          <div class="mock-name">設定</div>
+        </div>
+      </div>
+      <div style="margin-top: 30px; font-size: 11px; color: #8b949e;">現在表示中: <span id="current-sim-title" style="color:#fbbf24; font-weight:700;">#HV02 フルスクリーンLCD・CATイエロー</span></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  function selectPattern(id, filename) {
+    const imgPath = 'icons_v4_highvis/' + filename;
+    document.getElementById('sim-icon-img').src = imgPath;
+    
+    document.querySelectorAll('.card').forEach(c => c.style.borderColor = 'var(--border)');
+    const selCard = document.getElementById('card-' + id);
+    if (selCard) selCard.style.borderColor = '#f59e0b';
+    
+    const titles = {
+      'HV01': '#HV01 メガERR・タフネステスター',
+      'HV02': '#HV02 フルスクリーンLCD・CATイエロー',
+      'HV03': '#HV03 フルーク調 ハイコントラスト',
+      'HV04': '#HV04 セーフティオレンジ・プロタフネス',
+      'HV05': '#HV05 デュアルマニホールド・太線ハイビズ',
+      'HV06': '#HV06 警戒トラ柄・ハザードアラート',
+      'HV07': '#HV07 チタンヘキサゴン・極太ステンシル',
+      'HV08': '#HV08 クランプメーター・高コントラスト'
+    };
+    document.getElementById('current-sim-title').textContent = titles[id] || ('#' + id);
+
+    showToast('デザイン #' + id + ' を選択しました！下部のスマホ画面で確認できます');
+
+    document.querySelector('.phone-simulator-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function setWallpaper(type, btn) {
+    const p = document.getElementById('phone-mockup');
+    p.classList.remove('wp-dark', 'wp-light', 'wp-photo');
+    p.classList.add('wp-' + type);
+
+    document.querySelectorAll('.wp-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => {
+      t.classList.remove('show');
+    }, 2800);
+  }
+</script>
+
+</body>
+</html>

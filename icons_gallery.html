@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HVAC エラーコード検索 - アイコンデザイン候補 10選</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0d11;
+      --card-bg: #141820;
+      --border: #232a36;
+      --accent: #f97316;
+      --accent-glow: rgba(249, 115, 22, 0.25);
+      --text: #f0f6fc;
+      --text-muted: #8b949e;
+      --text-sub: #cbd5e1;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+      padding: 24px 16px 80px;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .badge-top {
+      display: inline-block;
+      background: rgba(249, 115, 22, 0.15);
+      color: #fb923c;
+      border: 1px solid rgba(249, 115, 22, 0.4);
+      padding: 4px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: clamp(22px, 4vw, 34px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    header p {
+      color: var(--text-muted);
+      font-size: 15px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .grid-view-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 18px;
+      background: #1f2937;
+      color: #67e8f9;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      border: 1px solid #374151;
+      transition: all 0.2s;
+    }
+    .grid-view-link:hover {
+      background: #374151;
+      border-color: #67e8f9;
+    }
+
+    /* Comparison Banner */
+    .banner {
+      background: #161b22;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 36px;
+      text-align: center;
+    }
+    .banner img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    /* Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 28px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: #f97316;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+    }
+    .card-top {
+      position: relative;
+      background: #0d1117;
+      padding: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .icon-preview {
+      width: 200px;
+      height: 200px;
+      border-radius: 44px;
+      overflow: hidden;
+      box-shadow: 0 16px 36px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.08);
+      transition: transform 0.2s;
+    }
+    .card:hover .icon-preview {
+      transform: scale(1.03);
+    }
+    .icon-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .number-tag {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: #ea580c;
+      color: #fff;
+      font-family: 'Chakra Petch', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 4px 12px;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+    }
+    .card-body {
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-title {
+      font-size: 19px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .card-subtitle {
+      font-size: 13px;
+      color: #fb923c;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    .meta-list {
+      list-style: none;
+      font-size: 13.5px;
+      margin-bottom: 20px;
+      flex: 1;
+    }
+    .meta-list li {
+      margin-bottom: 8px;
+      display: flex;
+      gap: 8px;
+    }
+    .meta-label {
+      color: var(--text-muted);
+      min-width: 80px;
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+    .meta-val {
+      color: var(--text-sub);
+    }
+    .color-swatch-bar {
+      display: flex;
+      gap: 6px;
+      margin: 10px 0 16px;
+    }
+    .color-chip {
+      height: 12px;
+      flex: 1;
+      border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .btn-apply {
+      background: #1f2937;
+      color: #fff;
+      border: 1px solid #374151;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+      width: 100%;
+    }
+    .btn-apply:hover {
+      background: #ea580c;
+      border-color: #ea580c;
+      color: #fff;
+    }
+
+    /* Phone preview section */
+    .phone-simulator-section {
+      margin-top: 60px;
+      background: #11151c;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 24px;
+      text-align: center;
+    }
+    .phone-simulator-section h2 {
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+    .phone-simulator-section p {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+    .phone-mockup {
+      display: inline-block;
+      width: 300px;
+      background: #000;
+      border: 4px solid #2d3748;
+      border-radius: 40px;
+      padding: 40px 16px 24px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+      position: relative;
+    }
+    .phone-notch {
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 110px;
+      height: 22px;
+      background: #1a202c;
+      border-radius: 12px;
+    }
+    .phone-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px 12px;
+      margin-top: 20px;
+    }
+    .mock-app {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .mock-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: #2d3748;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .mock-icon.featured {
+      box-shadow: 0 0 12px rgba(249, 115, 22, 0.5);
+      border: 1.5px solid #f97316;
+    }
+    .mock-icon.featured img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .mock-name {
+      font-size: 10px;
+      color: #fff;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 56px;
+    }
+
+    /* Modal */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #ea580c;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+      z-index: 9999;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="badge-top">PRO DESIGN CANDIDATES</div>
+    <h1>HVAC エラーコード検索 - アイコンデザイン候補 10選</h1>
+    <p>「ERR表示 ＋ 空調ルーバー・診断モチーフ」をベースに、素材・タイポグラフィ・テーマカラー・世界観を10種類完全に差別化したプロフェッショナルデザインです。</p>
+    <div>
+      <a href="index.html" class="grid-view-link">← エラーコード検索ツールに戻る</a>
+      <a href="icons_v2/icon_comparison_grid.jpg" target="_blank" class="grid-view-link">🖼️ 一覧比較高解像度シートを開く</a>
+    </div>
+  </header>
+
+  <!-- Comparison Banner -->
+  <div class="banner">
+    <a href="icons_v2/icon_comparison_grid.jpg" target="_blank">
+      <img src="icons_v2/icon_comparison_grid.jpg" alt="10デザイン比較一覧シート">
+    </a>
+    <p style="color: var(--text-muted); font-size: 13px; margin-top: 10px;">タップすると実寸大（超高精細 2360×1150px）で細部の質感まで拡大確認できます</p>
+  </div>
+
+  <!-- Cards -->
+  <div class="cards-grid">
+
+    <!-- Pattern 01 -->
+    <div class="card" id="card-01">
+      <div class="card-top">
+        <span class="number-tag">#01</span>
+        <div class="icon-preview">
+          <img src="icons_v2/pattern_01_isometric_3d.jpg" alt="Pattern 01">
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">3D アイソメトリック・サイバー空調</h2>
+        <div class="card-subtitle">未来型スマートエアコン & ネオンホログラムERR</div>
+        <div class="color-swatch-bar">
+          <div class="color-chip" style="background:#0284c7;" title="Cyan Glow"></div>
+          <div class="color-chip" style="background:#0f172a;" title="Space Navy"></div>
+          <div class="color-chip" style="background:#38bdf8;" title="Neon Ice"></div>
+        </div>
+        <ul class="meta-list">
+          <li><span class="meta-label">モチーフ:</span><span class="meta-val">浮遊する3Dルームエアコン室内機 ＋ 吹き出し口から放たれるホログラム立体文字</span></li>
+          <li><span class="meta-label">フォント:</span><span class="meta-val">近未来SF調の角丸ホログラフィック・ネオンタイポ</span></li>
+          <li><span class="meta-label">視認性:</span><span class="meta-val">暗所でも鮮やかに浮かび上がるアイスシアンの立体感</span></li>
+        </ul>
+        <button class="btn-apply" onclick="selectPattern('01', 'pattern_01_isometric_3d.jpg')">✓ このデザイン（#01）を選択</button>
+      </div>
+    </div>
+
+    <!-- Pattern 02 -->
+    <div class="card" id="card-02">
+      <div class="card-top">
+        <span class="number-tag">#02</span>
+        <div class="icon-preview">
+          <img src="icons_v2/pattern_02_rugged_tester.jpg" alt="Pattern 02">
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">ヘビーデューティー・現場タフネス計測器</h2>
+        <div class="card-subtitle">CAT/ミルウォーキー風 耐衝撃ラバー & 琥珀色LCD</div>
+        <div class="color-swatch-bar">
+          <div class="color-chip" style="background:#eab308;" title="CAT Yellow"></div>
+          <div class="color-chip" style="background:#1c1917;" title="Tough Rubber"></div>
+          <div class="color-chip" style="background:#f59e0b;" title="Amber LCD"></div>
+        </div>
+        <ul class="meta-list">
+          <li><span class="meta-label">モチーフ:</span><span class="meta-val">建設現場用耐衝撃プロテクターテスター ＋ 上部換気ルーバー</span></li>
+          <li><span class="meta-label">フォント:</span><span class="meta-val">工事用重機・計測機専用の高コントラスト7セグメント太字LCD</span></li>
+          <li><span class="meta-label">視認性:</span><span class="meta-val">直射日光下の屋外屋上現場でも一瞬で認識できる黄色枠×黒文字</span></li>
+        </ul>
+        <button class="btn-apply" onclick="selectPattern('02', 'pattern_02_rugged_tester.jpg')">✓ このデザイン（#02）を選択</button>
+      </div>
+    </div>
+
+    <!-- Pattern 03 -->
+    <div class="card" id="card-03">
+      <div class="card-top">
+        <span class="number-tag">#03</span>
+        <div class="icon-preview">
+          <img src="icons_v2/pattern_03_swiss_minimal.jpg" alt="Pattern 03">
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">スイス・ミニマルグラフィック</h2>
+        <div class="card-subtitle">建築的ルーバースリット & 大胆な極太オレンジタイポ</div>
+        <div class="color-swatch-bar">
+          <div class="color-chip" style="background:#f97316;" title="Safety Orange"></div>
+          <div class="color-chip" style="background:#ffffff;" title="Clean White"></div>
+          <div class="color-chip" style="background:#090d16;" title="Pure Black"></div>
+        </div>
+        <ul class="meta-list">
+          <li><span class="meta-label">モチーフ:</span><span class="meta-val">幾何学的な空調スリットライン ＋ 強烈なコントラストのフラット記号</span></li>
+          <li><span class="meta-label">フォント:</span><span class="meta-val">スイス・インターナショナル・タイポグラフィ調の極太幾何サンセリフ</span></li>
+          <li><span class="meta-label">視認性:</span><span class="meta-val">情報過多を削ぎ落とした最もシャープで現代的なアイコン</span></li>
+        </ul>
+        <button class="btn-apply" onclick="selectPattern('03', 'pattern_03_swiss_minimal.jpg')">✓ このデザイン（#03）を選択</button>
+      </div>
+    </div>
+
+    <!-- Pattern 04 -->
+    <div class="card" id="card-04">
+      <div class="card-top">
+        <span class="number-tag">#04</span>
+        <div class="icon-preview">
+          <img src="icons_v2/pattern_04_manifold_gauge.jpg" alt="Pattern 04">
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">マニホールド・ハイブリッド圧力計</h2>
+        <div class="card-subtitle">冷媒圧力ゲージ（青低圧/赤高圧） & デジタルERR</div>
+        <div class="color-swatch-bar">
+          <div class="color-chip" style="background:#2563eb;" title="Low Pressure Blue"></div>
+          <div class="color-chip" style="background:#dc2626;" title="High Pressure Red"></div>
+          <div class="color-chip" style="background:#f97316;" title="Warning Amber"></div>
+        </div>
+        <ul class="meta-list">
+          <li><span class="meta-label">モチーフ:</span><span class="meta-val">空調屋の相棒「デジタルマニホールドゲージ」＋ステンレス削り出しベゼル</span></li>
+          <li><span class="meta-label">フォント:</span><span class="meta-val">電子圧力センサーに表示される高精細デジタルセグメント</span></li>
+          <li><span class="meta-label">視認性:</span><span class="meta-val">空調業界関係者なら1秒で「空調計器ツールだ」と直感できるデザイン</span></li>
+        </ul>
+        <button class="btn-apply" onclick="selectPattern('04', 'pattern_04_manifold_gauge.jpg')">✓ このデザイン（#04）を選択</button>
+      </div>
+    </div>
+
+    <!-- Pattern 05 -->
+    <div class="card" id="card-05">
+      <div class="card-top">
+        <span class="number-tag">#05</span>
+        <div class="icon-preview">
+          <img src="icons_v2/pattern_05_tactile_dial.jpg" alt="Pattern 05">
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">精密ロータリーセレクター・ダイヤル</h2>
+        <div class="card-subtitle">ライカ/ブラウン調 アルミローレット & 中央OLED ERR</div>
+        <div class="color-swatch-bar">
+          <div class="color-chip" style="background:#e2e8f0;" title="Knurled Silver"></div>
+          <div class="color-chip" style="background:#1e293b;" title="Matte Titanium"></div>
+          <div class="color-chip" style="background:#f59e0b;" title="OLED Amber"></div>
+        </div>
+        <ul class="meta-list">
+          <li><span class="meta-label">モチーフ:</span><span class="meta-val">ドイツ高級計器のような刻みローレットダイヤル ＋ 側部ベンチレーション</span></li>
+          <li><span class="meta-label">フォント:</span><span class="meta-val">ディーター・ラムス調の端正なミニマルOLEDグローフォント</span></li>
+          <li><span class="meta-label">視認性:</span><span class="meta-val">道具としての所有欲を刺激する工芸品レベルの質感</span></li>
+        </ul>
+        <button class="btn-apply" onclick="selectPattern('05', 'pattern_05_tactile_dial.jpg')">✓ このデザイン（#05）を選択</button>
+      </div>
+    </div>
+
+    <!-- Pattern 06 -->
+    <div class="card" id="card-06">
+      <div class="card-top">
+        <span class="number-tag">#06</span>
+        <div class="icon-preview">
+          <img src="icons_v2/pattern_06_airflow_vortex.jpg" alt="Pattern 06">
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">冷暖デュアル・エアフロー渦</h2>
+        <div class="card-subtitle">氷結シアン×太陽オレンジ気流 & 放電ERRコア</div>
+        <div class="color-swatch-bar">
+          <div class="color-chip" style="background:#06b6d4;" title="Frost Cyan"></div>
+          <div class="color-chip" style="background:#f97316;" title="Solar Orange"></div>
+          <div class="color-chip" style="background:#030712;" title="Obsidian"></div>
+        </div>
+        <ul class="meta-list">
+          <li><span class="meta-label">モチーフ:</span><span class="meta-val">冷房（青）と暖房（橙）の熱交換気流が中心のERRコアを包み込むダイナミズム</span></li>
+          <li><span class="meta-label">フォント:</span><span class="meta-val">プラズマアーク放電のように発光するエレクトリック・ステンシル</span></li>
+          <li><span class="meta-label">視認性:</span><span class="meta-val">青とオレンジの補色対比による強烈なアイキャッチ</span></li>
+        </ul>
+        <button class="btn-apply" onclick="selectPattern('06', 'pattern_06_airflow_vortex.jpg')">✓ このデザイン（#06）を選択</button>
+      </div>
+    </div>
+
+    <!-- Pattern 07 -->
+    <div class="card" id="card-07">
+      <div class="card-top">
+        <span class="number-tag">#07</span>
+        <div class="icon-preview">
+          <img src="icons_v2/pattern_07_titanium_hex.jpg" alt="Pattern 07">
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">チタン製ヘキサゴン・インダストリアルバッジ</h2>
+        <div class="card-subtitle">重工業チタンボルト & レーザーカット換気スリット</div>
+        <div class="color-swatch-bar">
+          <div class="color-chip" style="background:#64748b;" title="Titanium Slate"></div>
+          <div class="color-chip" style="background:#ea580c;" title="Safety Orange Edge"></div>
+          <div class="color-chip" style="background:#fbbf24;" title="Laser Amber"></div>
+        </div>
+        <ul class="meta-list">
+          <li><span class="meta-label">モチーフ:</span><span class="meta-val">六角ボルト留めされた極厚メタルプレート ＋ レーザー彫刻銘板</span></li>
+          <li><span class="meta-label">フォント:</span><span class="meta-val">ミリタリー・産業スペックのステンシル調レーザーエッチング</span></li>
+          <li><span class="meta-label">視認性:</span><span class="meta-val">重厚感と信頼感が抜群のエンブレムデザイン</span></li>
+        </ul>
+        <button class="btn-apply" onclick="selectPattern('07', 'pattern_07_titanium_hex.jpg')">✓ このデザイン（#07）を選択</button>
+      </div>
+    </div>
+
+    <!-- Pattern 08 -->
+    <div class="card" id="card-08">
+      <div class="card-top">
+        <span class="number-tag">#08</span>
+        <div class="icon-preview">
+          <img src="icons_v2/pattern_08_visionos_glass.jpg" alt="Pattern 08">
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">VisionOS フロスト・グラスモフィズム</h2>
+        <div class="card-subtitle">すりガラス半透明レイヤー & コーラル×ネオン発光ERR</div>
+        <div class="color-swatch-bar">
+          <div class="color-chip" style="background:#f43f5e;" title="Neon Coral"></div>
+          <div class="color-chip" style="background:#8b5cf6;" title="Violet Ambient"></div>
+          <div class="color-chip" style="background:#334155;" title="Frosted Glass"></div>
+        </div>
+        <ul class="meta-list">
+          <li><span class="meta-label">モチーフ:</span><span class="meta-val">Apple VisionOS/iOS 18スタイルの擦りガラス透過層 ＋ 精密スリット</span></li>
+          <li><span class="meta-label">フォント:</span><span class="meta-val">ガラス内部で屈折・拡散発光する洗練されたモダン・ジオメトリック</span></li>
+          <li><span class="meta-label">視認性:</span><span class="meta-val">先進的で最もスタイリッシュ。スマホのホーム画面で際立つ美しさ</span></li>
+        </ul>
+        <button class="btn-apply" onclick="selectPattern('08', 'pattern_08_visionos_glass.jpg')">✓ このデザイン（#08）を選択</button>
+      </div>
+    </div>
+
+    <!-- Pattern 09 -->
+    <div class="card" id="card-09">
+      <div class="card-top">
+        <span class="number-tag">#09</span>
+        <div class="icon-preview">
+          <img src="icons_v2/pattern_09_oscilloscope_wave.jpg" alt="Pattern 09">
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">オシロスコープ・波形アナライザー</h2>
+        <div class="card-subtitle">暗視計器パネル & 圧縮機周波数波形→蛍光ERR</div>
+        <div class="color-swatch-bar">
+          <div class="color-chip" style="background:#10b981;" title="Phosphor Green"></div>
+          <div class="color-chip" style="background:#06b6d4;" title="Wave Cyan"></div>
+          <div class="color-chip" style="background:#f59e0b;" title="Fault Amber"></div>
+        </div>
+        <ul class="meta-list">
+          <li><span class="meta-label">モチーフ:</span><span class="meta-val">フルークやオシロスコープの周波数解析グリッド ＋ 異常波形フラットライン</span></li>
+          <li><span class="meta-label">フォント:</span><span class="meta-val">CRT管ディスプレイ風の電子計測器蛍光マトリクス</span></li>
+          <li><span class="meta-label">視認性:</span><span class="meta-val">「故障・波形診断」を直感させるプロフェッショナル計器の風格</span></li>
+        </ul>
+        <button class="btn-apply" onclick="selectPattern('09', 'pattern_09_oscilloscope_wave.jpg')">✓ このデザイン（#09）を選択</button>
+      </div>
+    </div>
+
+    <!-- Pattern 10 -->
+    <div class="card" id="card-10">
+      <div class="card-top">
+        <span class="number-tag">#10</span>
+        <div class="icon-preview">
+          <img src="icons_v2/pattern_10_hazard_emergency.jpg" alt="Pattern 10">
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">高警戒ハザード・コーションボックス</h2>
+        <div class="card-subtitle">黄黒トラ柄ベゼル & コンデンサー放熱フィン×緊急LED</div>
+        <div class="color-swatch-bar">
+          <div class="color-chip" style="background:#eab308;" title="Caution Yellow"></div>
+          <div class="color-chip" style="background:#000000;" title="Hazard Black"></div>
+          <div class="color-chip" style="background:#ef4444;" title="Alert Crimson"></div>
+        </div>
+        <ul class="meta-list">
+          <li><span class="meta-label">モチーフ:</span><span class="meta-val">斜め警戒ストライプ（トラ柄）フレーム ＋ 空調室外機ラジエーターフィン網</span></li>
+          <li><span class="meta-label">フォント:</span><span class="meta-val">緊急停止・警報盤を想起させる深紅・オレンジのデジタル太字LED</span></li>
+          <li><span class="meta-label">視認性:</span><span class="meta-val">現場での注意喚起・トラブル解決ツールとしての圧倒的なインパクト</span></li>
+        </ul>
+        <button class="btn-apply" onclick="selectPattern('10', 'pattern_10_hazard_emergency.jpg')">✓ このデザイン（#10）を選択</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Phone Simulator -->
+  <div class="phone-simulator-section">
+    <h2>📱 スマートフォン ホーム画面での見え方シミュレーター</h2>
+    <p>各デザインの「選択ボタン」を押すと、下のスマホ画面上のアプリアイコンがリアルタイムに切り替わります。</p>
+    <div class="phone-mockup">
+      <div class="phone-notch"></div>
+      <div class="phone-grid">
+        <div class="mock-app">
+          <div class="mock-icon" style="background:#22c55e;">📞</div>
+          <div class="mock-name">電話</div>
+        </div>
+        <div class="mock-app">
+          <div class="mock-icon" style="background:#3b82f6;">💬</div>
+          <div class="mock-name">LINE</div>
+        </div>
+        <div class="mock-app">
+          <div class="mock-icon" style="background:#6366f1;">✉️</div>
+          <div class="mock-name">メール</div>
+        </div>
+        <div class="mock-app">
+          <div class="mock-icon" style="background:#0284c7;">🌐</div>
+          <div class="mock-name">Safari</div>
+        </div>
+
+        <!-- Featured App Icon -->
+        <div class="mock-app">
+          <div class="mock-icon featured" id="simulated-app-icon">
+            <img src="icons_v2/pattern_02_rugged_tester.jpg" id="sim-icon-img" alt="Active Icon">
+          </div>
+          <div class="mock-name" style="color:#fb923c; font-weight:700;">空調エラー</div>
+        </div>
+
+        <div class="mock-app">
+          <div class="mock-icon" style="background:#64748b;">📷</div>
+          <div class="mock-name">カメラ</div>
+        </div>
+        <div class="mock-app">
+          <div class="mock-icon" style="background:#f59e0b;">📁</div>
+          <div class="mock-name">ファイル</div>
+        </div>
+        <div class="mock-app">
+          <div class="mock-icon" style="background:#8b5cf6;">⚙️</div>
+          <div class="mock-name">設定</div>
+        </div>
+      </div>
+      <div style="margin-top: 30px; font-size: 11px; color: #64748b;">現在表示中: <span id="current-sim-title" style="color:#fb923c; font-weight:700;">#02 現場タフネス計測器</span></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  function selectPattern(id, filename) {
+    const imgPath = 'icons_v2/' + filename;
+    document.getElementById('sim-icon-img').src = imgPath;
+    
+    // Highlight selected card
+    document.querySelectorAll('.card').forEach(c => c.style.borderColor = 'var(--border)');
+    const selCard = document.getElementById('card-' + id);
+    if (selCard) selCard.style.borderColor = '#f97316';
+    
+    // Update simulation label
+    const titles = {
+      '01': '#01 3D アイソメトリック・サイバー空調',
+      '02': '#02 現場タフネス計測器（CAT調）',
+      '03': '#03 スイス・ミニマルグラフィック',
+      '04': '#04 マニホールド・ハイブリッド圧力計',
+      '05': '#05 精密ロータリーセレクター',
+      '06': '#06 冷暖デュアル・エアフロー渦',
+      '07': '#07 チタン製ヘキサゴンバッジ',
+      '08': '#08 VisionOS フロストグラス',
+      '09': '#09 オシロスコープ波形アナライザー',
+      '10': '#10 高警戒ハザードボックス'
+    };
+    document.getElementById('current-sim-title').textContent = titles[id] || ('#' + id);
+
+    showToast('デザイン #' + id + ' を選択しました！下部のスマホプレビューで確認できます');
+
+    // Scroll smoothly to phone simulator
+    document.querySelector('.phone-simulator-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => {
+      t.classList.remove('show');
+    }, 2800);
+  }
+</script>
+
+</body>
+</html>

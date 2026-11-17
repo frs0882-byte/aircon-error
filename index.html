@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0d0f12">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="空調エラー即引き">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700;800;900&family=JetBrains+Mono:wght@700;800;900&display=swap" rel="stylesheet">
+  <title>HVAC エラーコード即引きツール | 現場特化型</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-dark">
+  <div class="app-container">
+    <!-- ヘッダー -->
+    <header class="app-header">
+      <div class="header-main">
+        <div class="header-brand">
+          <img src="app-icon-header.png" alt="HVAC Analyzer Icon" class="header-app-icon" width="40" height="40">
+          <div class="header-title-group">
+            <span class="header-badge">HVAC ANALYZER</span>
+            <h1 class="header-title">空調エラー即引き</h1>
+          </div>
+        </div>
+        <div class="header-controls">
+          <button id="btn-share-tool" class="icon-btn share-btn" title="スマホ間で共有 (QRコード)" aria-label="ツール共有">
+            <span>📲 共有</span>
+          </button>
+          <button id="btn-theme-toggle" class="icon-btn" title="明暗テーマ切替" aria-label="明暗テーマ切替">
+            <span id="theme-icon">☀️</span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- メーカー選択ピルタブ -->
+      <nav class="maker-tabs-scroll" aria-label="メーカー選択">
+        <div class="maker-tabs" id="maker-tabs-container">
+          <!-- JSで動的生成または静的配置 -->
+        </div>
+      </nav>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main class="app-main">
+      <!-- 検索入力セクション -->
+      <section class="search-section">
+        <div class="search-input-wrapper">
+          <span class="search-icon">🔍</span>
+          <input 
+            type="search" 
+            id="error-search-input" 
+            class="search-input" 
+            placeholder="コード入力 (例: A3, U4, P10, E04) または 症状"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="characters"
+            spellcheck="false"
+          >
+          <button id="btn-clear-search" class="clear-btn" title="入力を消去" style="display: none;">✕</button>
+          <button id="btn-toggle-keypad" class="keypad-toggle-btn" title="オンスクリーンキーパッド切替">
+            ⌨️ テンキー
+          </button>
+        </div>
+
+        <!-- 現場特化オンスクリーンキーパッド -->
+        <div class="onscreen-keypad hidden" id="onscreen-keypad">
+          <div class="keypad-grid" id="keypad-grid">
+            <!-- JSでキーを生成 -->
+          </div>
+        </div>
+
+        <!-- 症状から逆引きドラムピック (超省スペース・ドラムロール選択) -->
+        <div class="symptom-drum-wrapper">
+          <label for="symptom-drum-select" class="symptom-drum-label">
+            <span class="drum-pulse-dot"></span>
+            <span>症状ドラム逆引き</span>
+          </label>
+          <div class="drum-select-container">
+            <select id="symptom-drum-select" class="symptom-drum-select" aria-label="症状から逆引きドラムピック">
+              <option value="">▼ 症状を選択 (ドラムロールで選ぶ)</option>
+              <option value="ドレン">💧 ドレン水漏れ・満水・水位異常</option>
+              <option value="ファン">🌪 ファン・送風停止・回転数異常</option>
+              <option value="通信">📡 室内外通信・渡り線・伝送エラー</option>
+              <option value="高圧">🔥 高圧圧力過昇・室外熱交目詰まり</option>
+              <option value="吐出">🌡 吐出ガス温度過昇・過熱運転</option>
+              <option value="冷媒">❄ 冷媒ガス漏れ・低圧圧力低下</option>
+              <option value="電源">🔌 電源相順・逆相・欠相・電圧異常</option>
+              <option value="インバータ">📟 基板・インバータ・IPM短絡破損</option>
+              <option value="サーミスタ">📍 センサ・サーミスタ断線/短絡</option>
+            </select>
+            <button id="btn-clear-symptom" class="btn-clear-symptom hidden" title="症状選択を解除" aria-label="症状解除">✕ 解除</button>
+          </div>
+        </div>
+
+        <!-- 直近の検索履歴 & お気に入り切替 -->
+        <div class="quick-nav-bar">
+          <div class="nav-chips" id="recent-chips-container">
+            <!-- 履歴チップ -->
+          </div>
+          <div class="tab-switches">
+            <button id="tab-all-results" class="sub-tab-btn active">検索結果 (<span id="result-count">0</span>)</button>
+            <button id="tab-favorites" class="sub-tab-btn">⭐ 保存 (<span id="fav-count">0</span>)</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 検索結果 / カード表示エリア -->
+      <section class="results-section" id="results-container">
+        <!-- JSでエラーカードを挿入 -->
+      </section>
+    </main>
+
+    <!-- コピー完了トースト通知 -->
+    <div id="toast" class="toast">コピーしました</div>
+
+    <!-- 共有モーダル (QRコード) -->
+    <div id="share-modal" class="modal-backdrop" style="display: none;">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div class="modal-title-group">
+            <span class="modal-badge">TOOL SHARE</span>
+            <h3 class="modal-title">スマホどうしで共有</h3>
+          </div>
+          <button id="btn-close-modal" class="modal-close-btn" aria-label="閉じる">✕</button>
+        </div>
+        <div class="modal-body">
+          <p class="modal-desc">同僚のスマホカメラで以下のQRコードを読み取ると、すぐにこのツールを開けます。</p>
+          
+          <div class="qrcode-wrapper">
+            <div id="share-qrcode-container" class="qrcode-box"></div>
+          </div>
+
+          <div class="url-copy-box">
+            <input type="text" id="share-url-input" class="url-input" readonly>
+            <button id="btn-copy-url" class="btn-copy-url">コピー</button>
+          </div>
+
+          <div class="modal-actions">
+            <button id="btn-native-share" class="btn-primary-action">
+              📤 共有メニューを開く (LINE/AirDrop等)
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="qrcode.min.js"></script>
+  <script src="error-data.js"></script>
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js').catch(err => {
+          console.log('SW reg failed: ', err);
+        });
+      });
+    }
+  </script>
+</body>
+</html>

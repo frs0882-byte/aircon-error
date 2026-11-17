@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HVAC エラーコード検索 - 現場タフネス計測器（#02系統）10選</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090c10;
+      --card-bg: #131720;
+      --border: #232a38;
+      --accent: #f59e0b;
+      --accent-orange: #ea580c;
+      --text: #f0f6fc;
+      --text-muted: #8b949e;
+      --text-sub: #cbd5e1;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+      padding: 24px 16px 80px;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .badge-top {
+      display: inline-block;
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      padding: 4px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: clamp(22px, 4vw, 34px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    header p {
+      color: var(--text-muted);
+      font-size: 15px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #1c2331;
+      color: #38bdf8;
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      border: 1px solid #334155;
+      transition: all 0.2s;
+    }
+    .nav-btn:hover {
+      background: #283347;
+      border-color: #38bdf8;
+    }
+
+    /* Comparison Banner */
+    .banner {
+      background: #151a24;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 36px;
+      text-align: center;
+    }
+    .banner img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    }
+
+    /* Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 28px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: #f59e0b;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+    }
+    .card-top {
+      position: relative;
+      background: #0d1118;
+      padding: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .icon-preview {
+      width: 200px;
+      height: 200px;
+      border-radius: 44px;
+      overflow: hidden;
+      box-shadow: 0 16px 36px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.1);
+      transition: transform 0.2s;
+    }
+    .card:hover .icon-preview {
+      transform: scale(1.03);
+    }
+    .icon-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .number-tag {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: #ea580c;
+      color: #fff;
+      font-family: 'Chakra Petch', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 4px 12px;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+    }
+    .card-body {
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-title {
+      font-size: 19px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .card-subtitle {
+      font-size: 13px;
+      color: #fbbf24;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    .meta-list {
+      list-style: none;
+      font-size: 13.5px;
+      margin-bottom: 20px;
+      flex: 1;
+    }
+    .meta-list li {
+      margin-bottom: 8px;
+      display: flex;
+      gap: 8px;
+    }
+    .meta-label {
+      color: var(--text-muted);
+      min-width: 86px;
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+    .meta-val {
+      color: var(--text-sub);
+    }
+    .btn-apply {
+      background: #1e293b;
+      color: #fff;
+      border: 1px solid #334155;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+      width: 100%;
+    }
+    .btn-apply:hover {
+      background: #ea580c;
+      border-color: #ea580c;
+      color: #fff;
+    }
+
+    /* Phone simulator */
+    .phone-simulator-section {
+      margin-top: 60px;
+      background: #11151f;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 24px;
+      text-align: center;
+    }
+    .phone-simulator-section h2 {
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+    .phone-simulator-section p {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+    .phone-mockup {
+      display: inline-block;
+      width: 300px;
+      background: #000;
+      border: 4px solid #2d3748;
+      border-radius: 40px;
+      padding: 40px 16px 24px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+      position: relative;
+    }
+    .phone-notch {
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 110px;
+      height: 22px;
+      background: #1a202c;
+      border-radius: 12px;
+    }
+    .phone-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px 12px;
+      margin-top: 20px;
+    }
+    .mock-app {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .mock-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: #2d3748;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .mock-icon.featured {
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.6);
+      border: 1.5px solid #f59e0b;
+    }
+    .mock-icon.featured img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .mock-name {
+      font-size: 10px;
+      color: #fff;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 56px;
+    }
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #ea580c;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+      z-index: 9999;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="badge-top">RUGGED FIELD TESTER COLLECTION</div>
+    <h1>現場タフネス計測器スタイル（#02系統）厳選10パターン</h1>
+    <p>#02の「プロ用現場計測器・タフネスツール」の世界観を徹底追究。単なる色違いではなく、空調実務で使用される異なる10種類のハードウェア計器・機構・パーツで完全に差別化した本格デザインです。</p>
+    <div class="nav-links">
+      <a href="index.html" class="nav-btn">← エラーコード検索ツールに戻る</a>
+      <a href="icons_v3_rugged/rugged_comparison_grid.jpg" target="_blank" class="nav-btn">🖼️ 10種比較高解像度シート</a>
+      <a href="icons_gallery.html" class="nav-btn">🎨 前回の全系統10選を見る</a>
+    </div>
+  </header>
+
+  <!-- Banner -->
+  <div class="banner">
+    <a href="icons_v3_rugged/rugged_comparison_grid.jpg" target="_blank">
+      <img src="icons_v3_rugged/rugged_comparison_grid.jpg" alt="現場タフネス10パターン比較シート">
+    </a>
+    <p style="color: var(--text-muted); font-size: 13px; margin-top: 10px;">タップすると実寸大（超高精細 2360×1150px）で計器の細かいダイヤルや目盛まで確認できます</p>
+  </div>
+
+  <!-- Cards -->
+  <div class="cards-grid">
+
+    <!-- Pattern R01 -->
+    <div class="card" id="card-R01">
+      <div class="card-top">
+        <span class="number-tag">#R01</span>
+        <div class="icon-preview">
+          <img src="icons_v3_rugged/pattern_r01_field_tester.jpg" alt="Pattern R01">
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">耐衝撃ラバー・フィールドテスター</h2>
+        <div class="card-subtitle">元祖#02：CAT/ミルウォーキー調 耐衝撃ラバー & 琥珀色LCD</div>
+        <ul class="meta-list">
+          <li><span class="meta-label">計器タイプ:</span><span class="meta-val">耐衝撃バンパー携帯型診断機 ＋ 上部換気ルーバー</span></li>
+          <li><span class="meta-label">ハードウェア:</span><span class="meta-val">極厚ブラックラバープロテクター、セーフティイエローハウジング</span></li>
+          <li><span class="meta-label">ディスプレイ:</span><span class="meta-val">工事用7セグメント太字LCD（琥珀色アンバー発光）</span></li>
+          <li><span class="meta-label">現場の印象:</span><span class="meta-val">炎天下や直射日光の屋上でも圧倒的に目立つタフネスの王道</span></li>
+        </ul>
+        <button class="btn-apply" onclick="selectPattern('R01', 'pattern_r01_field_tester.jpg')">✓ このデザイン（#R01）を選択</button>
+      </div>
+    </div>
+
+    <!-- Pattern R02 -->
+    <div class="card" id="card-R02">
+      <div class="card-top">
+        <span class="number-tag">#R02</span>
+        <div class="icon-preview">
+          <img src="icons_v3_rugged/pattern_r02_clamp_meter.jpg" alt="Pattern R02">
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">クランプメーター型 電流・過負荷テスター</h2>
+        <div class="card-subtitle">上部変流トランス・クランプ爪 & 太字LCD過電流アラート</div>
+        <ul class="meta-list">
+          <li><span class="meta-label">計器タイプ:</span><span class="meta-val">コンプレッサーの過負荷・電流診断用 デジタルクランプメーター</span></li>
+          <li><span class="meta-label">ハードウェア:</span><span class="meta-val">上部に飛び出た赤黒の絶縁クランプ爪、滑り止めリブグリップ、親指トリガー</span></li>
+          <li><span class="meta-label">ディスプレイ:</span><span class="meta-val">大画面アンバーバックライトLCD ＋ 警告雷マーク ＋ [OVERLOAD]</span></li>
+          <li><span class="meta-label">現場の印象:</span><span class="meta-val">電気系統・圧縮機ロックのトラブル診断を直感させるツール感</span></li>
+        </ul>
+        <button class="btn-apply" onclick="selectPattern('R02', 'pattern_r02_clamp_meter.jpg')">✓ このデザイン（#R02）を選択</button>
+      </div>
+    </div>
+
+    <!-- Pattern R03 -->
+    <div class="card" id="card-R03">
+      <div class="card-top">
+        <span class="number-tag">#R03</span>
+        <div class="icon-preview">
+          <img src="icons_v3_rugged/pattern_r03_fluke_multimeter.jpg" alt="Pattern R03">
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">FLUKE調 イエローマルチメーター</h2>
+        <div class="card-subtitle">高視認性セーフティイエロー外装 & 大型ロータリーノブ & バナナ端子</div>
+        <ul class="meta-list">
+          <li><span class="meta-label">計器タイプ:</span><span class="meta-val">世界標準の電気計測器（フルーク・マルチメーター型）</span></li>
+          <li><span class="meta-label">ハードウェア:</span><span class="meta-val">中心に刻みローレット大型切替ノブ、下部に2基のバナナ端子ジャック</span></li>
+          <li><span class="meta-label">ディスプレイ:</span><span class="meta-val">上部ドットマトリクスLCD「ERR CODE 88」が鮮明に点灯</span></li>
+          <li><span class="meta-label">現場の印象:</span><span class="meta-val">プロの技術者全員が持っているテスターそのものの安心感</span></li>
+        </ul>
+        <button class="btn-apply" onclick="selectPattern('R03', 'pattern_r03_fluke_multimeter.jpg')">✓ このデザイン（#R03）を選択</button>
+      </div>
+    </div>
+
+    <!-- Pattern R04 -->
+    <div class="card" id="card-R04">
+      <div class="card-top">
+        <span class="number-tag">#R04</span>
+        <div class="icon-preview">
+          <img src="icons_v3_rugged/pattern_r04_refrigerant_scale.jpg" alt="Pattern R04">
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">縞鋼板 冷媒充填デジタルスケール</h2>
+        <div class="card-subtitle">アルミ削り出しチェッカー台座 & 四隅ラバーボルト & デジタル画面</div>
+        <ul class="meta-list">
+          <li><span class="meta-label">計器タイプ:</span><span class="meta-val">冷媒ボンベ計量・充填用 高耐久電子スケール台座</span></li>
+          <li><span class="meta-label">ハードウェア:</span><span class="meta-val">本物の工業用縞鋼板（チェッカープレート）、四隅のオレンジ防振パッド</span></li>
+          <li><span class="meta-label">ディスプレイ:</span><span class="meta-val">埋め込み傾斜コントローラー「ERR [FLOW BLOCKED] / 0.00 kg」</span></li>
+          <li><span class="meta-label">現場の印象:</span><span class="meta-val">金属の重量感と金属加工の質感が際立つメカニカルな魅力</span></li>
+        </ul>
+        <button class="btn-apply" onclick="selectPattern('R04', 'pattern_r04_refrigerant_scale.jpg')">✓ このデザイン（#R04）を選択</button>
+      </div>
+    </div>
+
+    <!-- Pattern R05 -->
+    <div class="card" id="card-R05">
+      <div class="card-top">
+        <span class="number-tag">#R05</span>
+        <div class="icon-preview">
+          <img src="icons_v3_rugged/pattern_r05_digital_manifold.jpg" alt="Pattern R05">
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">デジタルマニホールド・ハイブリッド連成圧計</h2>
+        <div class="card-subtitle">ステンレスベゼル & 青低圧/赤高圧デュアル目盛 & 琥珀LCD</div>
+        <ul class="meta-list">
+          <li><span class="meta-label">計器タイプ:</span><span class="meta-val">冷媒ガス圧力を測定するマニホールドゲージ（連成計）</span></li>
+          <li><span class="meta-label">ハードウェア:</span><span class="meta-val">削り出しステンレスベゼル、左右に青（低圧）と赤（高圧）の圧力スケール</span></li>
+          <li><span class="meta-label">ディスプレイ:</span><span class="meta-val">中央に高コントラストデジタルLCD ＋ 警告三角アイコン</span></li>
+          <li><span class="meta-label">現場の印象:</span><span class="meta-val">「冷媒・配管・ガス漏れ診断」を最も象徴する空調屋専用アイコン</span></li>
+        </ul>
+        <button class="btn-apply" onclick="selectPattern('R05', 'pattern_r05_digital_manifold.jpg')">✓ このデザイン（#R05）を選択</button>
+      </div>
+    </div>
+
+    <!-- Pattern R06 -->
+    <div class="card" id="card-R06">
+      <div class="card-top">
+        <span class="number-tag">#R06</span>
+        <div class="icon-preview">
+          <img src="icons_v3_rugged/pattern_r06_rotary_selector.jpg" alt="Pattern R06">
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">精密アルミ削り出しロータリーセレクター</h2>
+        <div class="card-subtitle">ライカ調 刻みローレットダイヤル & 側部ルーバー & 中央OLED</div>
+        <ul class="meta-list">
+          <li><span class="meta-label">計器タイプ:</span><span class="meta-val">精密ロータリースイッチ型 診断セレクター</span></li>
+          <li><span class="meta-label">ハードウェア:</span><span class="meta-val">航空機グレードアルミのダイヤル外周、側部放熱ベンチレーション</span></li>
+          <li><span class="meta-label">ディスプレイ:</span><span class="meta-val">中央の漆黒OLEDスクリーンに灯る温かみのあるアンバー発光ERR</span></li>
+          <li><span class="meta-label">現場の印象:</span><span class="meta-val">無骨さの中にドイツ工業デザインのような美しさと道具感を凝縮</span></li>
+        </ul>
+        <button class="btn-apply" onclick="selectPattern('R06', 'pattern_r06_rotary_selector.jpg')">✓ このデザイン（#R06）を選択</button>
+      </div>
+    </div>
+
+    <!-- Pattern R07 -->
+    <div class="card" id="card-R07">
+      <div class="card-top">
+        <span class="number-tag">#R07</span>
+        <div class="icon-preview">
+          <img src="icons_v3_rugged/pattern_r07_titanium_hex.jpg" alt="Pattern R07">
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">チタン製ヘキサゴンボルト・インダストリアル銘板</h2>
+        <div class="card-subtitle">軍用チタンボルト固定 & レーザーカット換気スリット & ステンシルERR</div>
+        <ul class="meta-list">
+          <li><span class="meta-label">計器タイプ:</span><span class="meta-val">大型空調機・チラー機械室の点検口銘板バッジ</span></li>
+          <li><span class="meta-label">ハードウェア:</span><span class="meta-val">六角ボルト留めされた極厚チタン板、周囲のオレンジ面取りフレーム</span></li>
+          <li><span class="meta-label">ディスプレイ:</span><span class="meta-val">換気スリットから漏れる光と、レーザー彫刻された発光ステンシル文字</span></li>
+          <li><span class="meta-label">現場の印象:</span><span class="meta-val">重機・プラント設備のような強靭さとヘビーデューティーな信頼感</span></li>
+        </ul>
+        <button class="btn-apply" onclick="selectPattern('R07', 'pattern_r07_titanium_hex.jpg')">✓ このデザイン（#R07）を選択</button>
+      </div>
+    </div>
+
+    <!-- Pattern R08 -->
+    <div class="card" id="card-R08">
+      <div class="card-top">
+        <span class="number-tag">#R08</span>
+        <div class="icon-preview">
+          <img src="icons_v3_rugged/pattern_r08_oscilloscope_wave.jpg" alt="Pattern R08">
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">オシロスコープ・圧縮機波形アナライザー</h2>
+        <div class="card-subtitle">暗視計器パネル & 圧縮機周波数波形 & 蛍光体ドットマトリクス</div>
+        <ul class="meta-list">
+          <li><span class="meta-label">計器タイプ:</span><span class="meta-val">インバーター基板・圧縮機モーター診断用 ロジックアナライザー</span></li>
+          <li><span class="meta-label">ハードウェア:</span><span class="meta-val">軍用暗視パネル、四隅の六角ネジ、CRT蛍光グリッド座標</span></li>
+          <li><span class="meta-label">ディスプレイ:</span><span class="meta-val">異常周波数波形がそのまま発光デジタルセグメント「ERR」に直結</span></li>
+          <li><span class="meta-label">現場の印象:</span><span class="meta-val">「電子回路・通信エラー・インバーター不良」の深層診断を感じさせる玄人仕様</span></li>
+        </ul>
+        <button class="btn-apply" onclick="selectPattern('R08', 'pattern_r08_oscilloscope_wave.jpg')">✓ このデザイン（#R08）を選択</button>
+      </div>
+    </div>
+
+    <!-- Pattern R09 -->
+    <div class="card" id="card-R09">
+      <div class="card-top">
+        <span class="number-tag">#R09</span>
+        <div class="icon-preview">
+          <img src="icons_v3_rugged/pattern_r09_hazard_box.jpg" alt="Pattern R09">
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">高警戒ハザード・コーション緊急警報盤</h2>
+        <div class="card-subtitle">黄黒トラ柄ベゼル & コンデンサー放熱フィン網 & 非常停止LED</div>
+        <ul class="meta-list">
+          <li><span class="meta-label">計器タイプ:</span><span class="meta-val">空調機緊急トリップ・コーションボックス</span></li>
+          <li><span class="meta-label">ハードウェア:</span><span class="meta-val">警戒トラ柄ストライプベゼル、室外機コンデンサー放熱フィン網、レンチ付き三角標識</span></li>
+          <li><span class="meta-label">ディスプレイ:</span><span class="meta-val">非常停止盤を想起させる深紅・オレンジのデジタル太字LED</span></li>
+          <li><span class="meta-label">現場の印象:</span><span class="meta-val">遠目からでも「エラー発生・トラブル解決アプリだ」と一目で伝わる警告力</span></li>
+        </ul>
+        <button class="btn-apply" onclick="selectPattern('R09', 'pattern_r09_hazard_box.jpg')">✓ このデザイン（#R09）を選択</button>
+      </div>
+    </div>
+
+    <!-- Pattern R10 -->
+    <div class="card" id="card-R10">
+      <div class="card-top">
+        <span class="number-tag">#R10</span>
+        <div class="icon-preview">
+          <img src="icons_v3_rugged/pattern_r10_disconnect_switch.jpg" alt="Pattern R10">
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">屋外動力盤・主開閉器ブレーカーテスター</h2>
+        <div class="card-subtitle">耐候合金ケース & トリップ切替スイッチ & パワー/フォルトLED</div>
+        <ul class="meta-list">
+          <li><span class="meta-label">計器タイプ:</span><span class="meta-val">空調室外機そばの動力切替開閉器 ＋ 総合診断パネル</span></li>
+          <li><span class="meta-label">ハードウェア:</span><span class="meta-val">オレンジコーナーガード、大型ロッカースイッチ（FAULT位置）、金メッキバナナ端子</span></li>
+          <li><span class="meta-label">ディスプレイ:</span><span class="meta-val">大画面アンバーLCD「ERR // COMPRESSOR TRIP [LOCKOUT]」</span></li>
+          <li><span class="meta-label">現場の印象:</span><span class="meta-val">電源遮断・ブレーカートリップからの復旧点検を想起させる実務派</span></li>
+        </ul>
+        <button class="btn-apply" onclick="selectPattern('R10', 'pattern_r10_disconnect_switch.jpg')">✓ このデザイン（#R10）を選択</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Phone Simulator -->
+  <div class="phone-simulator-section">
+    <h2>📱 スマートフォン ホーム画面での見え方シミュレーター</h2>
+    <p>各デザインの「選択ボタン」を押すと、下のスマホ画面上のアプリアイコンがリアルタイムに切り替わります。</p>
+    <div class="phone-mockup">
+      <div class="phone-notch"></div>
+      <div class="phone-grid">
+        <div class="mock-app">
+          <div class="mock-icon" style="background:#22c55e;">📞</div>
+          <div class="mock-name">電話</div>
+        </div>
+        <div class="mock-app">
+          <div class="mock-icon" style="background:#3b82f6;">💬</div>
+          <div class="mock-name">LINE</div>
+        </div>
+        <div class="mock-app">
+          <div class="mock-icon" style="background:#6366f1;">✉️</div>
+          <div class="mock-name">メール</div>
+        </div>
+        <div class="mock-app">
+          <div class="mock-icon" style="background:#0284c7;">🌐</div>
+          <div class="mock-name">Safari</div>
+        </div>
+
+        <!-- Featured App Icon -->
+        <div class="mock-app">
+          <div class="mock-icon featured" id="simulated-app-icon">
+            <img src="icons_v3_rugged/pattern_r01_field_tester.jpg" id="sim-icon-img" alt="Active Icon">
+          </div>
+          <div class="mock-name" style="color:#fbbf24; font-weight:700;">空調エラー</div>
+        </div>
+
+        <div class="mock-app">
+          <div class="mock-icon" style="background:#64748b;">📷</div>
+          <div class="mock-name">カメラ</div>
+        </div>
+        <div class="mock-app">
+          <div class="mock-icon" style="background:#f59e0b;">📁</div>
+          <div class="mock-name">ファイル</div>
+        </div>
+        <div class="mock-app">
+          <div class="mock-icon" style="background:#8b5cf6;">⚙️</div>
+          <div class="mock-name">設定</div>
+        </div>
+      </div>
+      <div style="margin-top: 30px; font-size: 11px; color: #64748b;">現在表示中: <span id="current-sim-title" style="color:#fbbf24; font-weight:700;">#R01 耐衝撃ラバー・フィールドテスター</span></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  function selectPattern(id, filename) {
+    const imgPath = 'icons_v3_rugged/' + filename;
+    document.getElementById('sim-icon-img').src = imgPath;
+    
+    // Highlight selected card
+    document.querySelectorAll('.card').forEach(c => c.style.borderColor = 'var(--border)');
+    const selCard = document.getElementById('card-' + id);
+    if (selCard) selCard.style.borderColor = '#f59e0b';
+    
+    // Update simulation label
+    const titles = {
+      'R01': '#R01 耐衝撃フィールドテスター（元祖#02）',
+      'R02': '#R02 クランプメーター型 電流診断テスター',
+      'R03': '#R03 FLUKE調 イエローマルチメーター',
+      'R04': '#R04 縞鋼板 冷媒充填デジタルスケール',
+      'R05': '#R05 デジタルマニホールド連成圧計',
+      'R06': '#R06 精密アルミ削り出しロータリーセレクター',
+      'R07': '#R07 チタン製ヘキサゴン銘板バッジ',
+      'R08': '#R08 オシロスコープ波形アナライザー',
+      'R09': '#R09 高警戒ハザード・コーション警報盤',
+      'R10': '#R10 屋外動力盤・主開閉器ブレーカー'
+    };
+    document.getElementById('current-sim-title').textContent = titles[id] || ('#' + id);
+
+    showToast('デザイン #' + id + ' を選択しました！下部のスマホ画面で確認できます');
+
+    // Scroll smoothly to phone simulator
+    document.querySelector('.phone-simulator-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => {
+      t.classList.remove('show');
+    }, 2800);
+  }
+</script>
+
+</body>
+</html>
