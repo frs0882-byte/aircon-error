@@ -16,6 +16,202 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body class="theme-dark">
+  <!-- オープニングスプラッシュ（1+2 融合ハイブリッドアニメーション） -->
+  <div id="app-splash" class="app-splash anim-fusion" role="presentation">
+    <div class="splash-mesh-bg"></div>
+    <div class="splash-blue-aura"></div>
+    <div class="splash-pulse-ring splash-pulse-1"></div>
+    <div class="splash-pulse-ring splash-pulse-2"></div>
+
+    <div class="splash-hero-box">
+      <svg class="splash-hero-svg" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="sp-bgPlateGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#191d26"/>
+            <stop offset="50%" stop-color="#0d1015"/>
+            <stop offset="100%" stop-color="#07090d"/>
+          </linearGradient>
+          <linearGradient id="sp-titaniumBevel" x1="15%" y1="0%" x2="85%" y2="100%">
+            <stop offset="0%" stop-color="#eef2f7"/>
+            <stop offset="25%" stop-color="#8b95a5"/>
+            <stop offset="55%" stop-color="#3c4352"/>
+            <stop offset="85%" stop-color="#7c8798"/>
+            <stop offset="100%" stop-color="#222630"/>
+          </linearGradient>
+          <linearGradient id="sp-brushedMetal" x1="0%" y1="0%" x2="100%" y2="15%">
+            <stop offset="0%" stop-color="#485060"/>
+            <stop offset="22%" stop-color="#9ca6b8"/>
+            <stop offset="48%" stop-color="#cfd6e3"/>
+            <stop offset="75%" stop-color="#7a8496"/>
+            <stop offset="100%" stop-color="#343b48"/>
+          </linearGradient>
+          <linearGradient id="sp-innerChassisGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#2e3442"/>
+            <stop offset="50%" stop-color="#171b23"/>
+            <stop offset="100%" stop-color="#262b38"/>
+          </linearGradient>
+          <radialGradient id="sp-coolantBlueGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#70e4ff" stop-opacity="1"/>
+            <stop offset="38%" stop-color="#00b4ff" stop-opacity="0.75"/>
+            <stop offset="70%" stop-color="#0055aa" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#001a33" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="sp-errFlameGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#fff3b0"/>
+            <stop offset="35%" stop-color="#ffb703"/>
+            <stop offset="75%" stop-color="#ff7a00"/>
+            <stop offset="100%" stop-color="#e84a00"/>
+          </linearGradient>
+          <linearGradient id="sp-sheenGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+            <stop offset="50%" stop-color="#ffffff" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+          </linearGradient>
+          <filter id="sp-neonOrangeGlow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="8" result="blur1"/>
+            <feGaussianBlur stdDeviation="20" result="blur2"/>
+            <feMerge>
+              <feMergeNode in="blur2"/>
+              <feMergeNode in="blur1"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+          <filter id="sp-dropShadowHeavy" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000000" flood-opacity="0.85"/>
+          </filter>
+          <pattern id="sp-iconDotsPattern" width="12" height="12" patternUnits="userSpaceOnUse">
+            <circle cx="6" cy="6" r="1.4" fill="#000000" opacity="0.55"/>
+          </pattern>
+          <pattern id="sp-hairlinePattern" width="8" height="3" patternUnits="userSpaceOnUse">
+            <line x1="0" y1="0" x2="8" y2="0" stroke="#ffffff" stroke-width="0.6" opacity="0.1"/>
+            <line x1="0" y1="1.5" x2="8" y2="1.5" stroke="#000000" stroke-width="0.6" opacity="0.12"/>
+          </pattern>
+          <pattern id="sp-knurlPattern" width="6" height="6" patternUnits="userSpaceOnUse">
+            <path d="M 0 0 L 6 6 M 6 0 L 0 6" stroke="#181b22" stroke-width="1.3"/>
+          </pattern>
+          <clipPath id="sp-hexClip">
+            <polygon points="256,42 448,148 448,364 256,470 64,364 64,148"/>
+          </clipPath>
+        </defs>
+
+        <!-- 台座 -->
+        <rect x="16" y="16" width="480" height="480" rx="106" fill="url(#sp-bgPlateGrad)"/>
+        <rect x="16" y="16" width="480" height="480" rx="106" fill="url(#sp-iconDotsPattern)"/>
+
+        <!-- 外周オレンジ枠 -->
+        <rect class="sp-outer-frame" x="28" y="28" width="456" height="456" rx="96"
+              fill="none" stroke="#ff7a00" stroke-width="11"
+              style="filter: drop-shadow(0 0 8px rgba(255,122,0,0.7));"/>
+
+        <!-- 六角形チタン装甲コア -->
+        <g class="sp-hex-chassis" filter="url(#sp-dropShadowHeavy)">
+          <path d="M52,185 L70,175 L70,337 L52,327 Z" fill="#707a8d" stroke="#222630" stroke-width="2"/>
+          <path d="M52,185 L70,175 L70,337 L52,327 Z" fill="url(#sp-knurlPattern)"/>
+          <path d="M460,185 L442,175 L442,337 L460,327 Z" fill="#707a8d" stroke="#222630" stroke-width="2"/>
+          <path d="M460,185 L442,175 L442,337 L460,327 Z" fill="url(#sp-knurlPattern)"/>
+
+          <polygon points="256,34 456,144 456,368 256,478 56,368 56,144"
+                   fill="url(#sp-titaniumBevel)" stroke="#11141a" stroke-width="3"/>
+          <polygon points="256,50 440,152 440,360 256,462 72,360 72,152"
+                   fill="url(#sp-innerChassisGrad)" stroke="#090b0f" stroke-width="2"/>
+
+          <polygon class="sp-hex-orange-trim"
+                   points="256,58 432,156 432,356 256,454 80,356 80,156"
+                   fill="none" stroke="#ff7a00" stroke-width="4" stroke-linejoin="round"
+                   style="filter: drop-shadow(0 0 4px rgba(255,122,0,0.8));"/>
+
+          <!-- 冷媒ブルー発光＆タービン放射 -->
+          <g class="sp-turbine-glow" clip-path="url(#sp-hexClip)">
+            <circle cx="256" cy="256" r="195" fill="url(#sp-coolantBlueGlow)"/>
+            <g opacity="0.45" stroke="#80ebff" stroke-width="10">
+              <line x1="256" y1="256" x2="256" y2="50"/>
+              <line x1="256" y1="256" x2="360" y2="80"/>
+              <line x1="256" y1="256" x2="152" y2="80"/>
+              <line x1="256" y1="256" x2="256" y2="462"/>
+              <line x1="256" y1="256" x2="360" y2="432"/>
+              <line x1="256" y1="256" x2="152" y2="432"/>
+            </g>
+          </g>
+
+          <!-- 通気ルーバー -->
+          <g fill="#0c0f14" stroke="#454d5e" stroke-width="1.5">
+            <polygon points="220,90 292,90 315,104 197,104"/>
+            <polygon points="175,118 337,118 355,132 157,132"/>
+            <polygon points="135,146 377,146 390,160 122,160"/>
+            <polygon points="122,352 390,352 377,366 135,366"/>
+            <polygon points="157,380 355,380 337,394 175,394"/>
+            <polygon points="197,408 315,408 292,422 220,422"/>
+          </g>
+
+          <!-- 中央ブラッシュドチタンプレート -->
+          <polygon points="90,180 422,180 434,256 422,332 90,332 78,256"
+                   fill="url(#sp-brushedMetal)" stroke="#1b2029" stroke-width="3"/>
+          <polygon points="90,180 422,180 434,256 422,332 90,332 78,256"
+                   fill="url(#sp-hairlinePattern)"/>
+          <line x1="94" y1="184" x2="418" y2="184" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+          <line x1="94" y1="329" x2="418" y2="329" stroke="rgba(0,0,0,0.6)" stroke-width="2"/>
+
+          <!-- 精密マイクロ刻印 -->
+          <g fill="#1c222d" opacity="0.88">
+            <rect x="104" y="190" width="28" height="4" rx="1"/>
+            <rect x="104" y="197" width="18" height="3" rx="1"/>
+            <circle cx="139" cy="193" r="2.1"/>
+            <circle cx="147" cy="193" r="2.1"/>
+            <circle cx="155" cy="193" r="2.1"/>
+            <rect x="356" y="190" width="16" height="4.5" rx="1"/>
+            <rect x="376" y="190" width="26" height="4.5" rx="1"/>
+            <text x="356" y="203" font-family="JetBrains Mono, monospace" font-size="7" font-weight="900">SYS-HV07</text>
+          </g>
+
+          <!-- 六角穴付きボルト -->
+          <g class="sp-bolt sp-bolt-left">
+            <circle cx="108" cy="256" r="14" fill="#2c3340" stroke="#7a8496" stroke-width="2"/>
+            <polygon points="108,247 116,251.5 116,260.5 108,265 100,260.5 100,251.5" fill="#0d1015"/>
+          </g>
+          <g class="sp-bolt sp-bolt-right">
+            <circle cx="404" cy="256" r="14" fill="#2c3340" stroke="#7a8496" stroke-width="2"/>
+            <polygon points="404,247 412,251.5 412,260.5 404,265 396,260.5 396,251.5" fill="#0d1015"/>
+          </g>
+
+          <!-- コードフラッシュ ➔ ERRロックテキスト -->
+          <g class="sp-err-group" filter="url(#sp-neonOrangeGlow)">
+            <text id="splash-hero-text" x="256" y="282"
+                  text-anchor="middle"
+                  font-family="Chakra Petch, sans-serif"
+                  font-size="104"
+                  font-weight="900"
+                  letter-spacing="4"
+                  fill="url(#sp-errFlameGrad)"
+                  stroke="#ff6200"
+                  stroke-width="2.5">ERR</text>
+          </g>
+
+          <text class="sp-sub-stencil" x="256" y="317"
+                text-anchor="middle"
+                font-family="JetBrains Mono, monospace"
+                font-size="13.5"
+                font-weight="900"
+                letter-spacing="1.6"
+                fill="#161a22">DIAGNOSTIC UNIT // HVAC PRO</text>
+
+          <g clip-path="url(#sp-hexClip)">
+            <polygon class="sp-metal-sheen" points="0,0 90,0 -30,512 -120,512" fill="url(#sp-sheenGrad)"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <div class="splash-telemetry">
+      <div class="splash-telemetry-brand">HVAC ANALYZER</div>
+      <div class="splash-bar-track">
+        <div class="splash-bar-fill"></div>
+      </div>
+      <div class="splash-telemetry-status" id="splash-status">BUILDING CHASSIS...</div>
+    </div>
+
+    <button type="button" class="splash-skip-btn" id="btn-skip-splash">SKIP ⏭</button>
+  </div>
+
   <div class="app-container">
     <!-- ヘッダー -->
     <header class="app-header">

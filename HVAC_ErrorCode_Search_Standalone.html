@@ -1327,10 +1327,524 @@ body.theme-light .symptom-drum-select option {
   box-shadow: var(--shadow-key-pressed);
 }
 
+/* ==========================================================================
+   オープニングスプラッシュ（1+2 融合ハイブリッドアニメーション）
+   ========================================================================== */
+.app-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #07090d;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1), transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.app-splash.fade-out {
+  opacity: 0;
+  transform: scale(1.06);
+  pointer-events: none;
+}
+
+.app-splash.hidden {
+  display: none !important;
+}
+
+.splash-mesh-bg {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 10px 10px;
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.splash-blue-aura {
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 210, 255, 0.25) 0%, rgba(0, 119, 182, 0.08) 45%, transparent 72%);
+  filter: blur(18px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.splash-pulse-ring {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border: 2px solid #00d2ff;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.splash-hero-box {
+  position: relative;
+  width: min(230px, 58vw);
+  height: min(230px, 58vw);
+  z-index: 10;
+}
+
+.splash-hero-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.sp-hex-chassis,
+.sp-turbine-glow {
+  transform-box: view-box;
+  transform-origin: 256px 256px;
+}
+
+.sp-bolt,
+#splash-hero-text {
+  transform-box: fill-box;
+  transform-origin: center center;
+}
+
+/* FUSION アニメーション状態 */
+.anim-fusion .sp-outer-frame {
+  stroke-dasharray: 1800;
+  stroke-dashoffset: 1800;
+}
+.anim-fusion.play .sp-outer-frame {
+  animation: sp-draw-stroke 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.anim-fusion .sp-hex-chassis {
+  opacity: 0;
+  transform: scale(0.8);
+}
+.anim-fusion.play .sp-hex-chassis {
+  animation: sp-hex-lock-in 0.48s cubic-bezier(0.34, 1.56, 0.64, 1) 0.16s forwards;
+}
+
+.anim-fusion .sp-hex-orange-trim {
+  stroke-dasharray: 1400;
+  stroke-dashoffset: 1400;
+}
+.anim-fusion.play .sp-hex-orange-trim {
+  animation: sp-draw-stroke 0.52s ease-out 0.3s forwards;
+}
+
+.anim-fusion.play .sp-bolt-left,
+.anim-fusion.play .sp-bolt-right {
+  animation: sp-bolt-spin 0.38s ease-out 0.42s forwards;
+}
+
+.anim-fusion .sp-turbine-glow {
+  opacity: 0;
+  transform: scale(0.6);
+}
+.anim-fusion.play .sp-turbine-glow {
+  animation: sp-blue-ignite 0.55s ease-out 0.5s forwards;
+}
+
+.anim-fusion.play .splash-blue-aura {
+  animation: sp-aura-pulse 1.5s ease-out 0.45s forwards;
+}
+
+.anim-fusion.play .splash-pulse-1 {
+  animation: sp-sonar-wave 0.75s cubic-bezier(0.1, 0.8, 0.3, 1) 0.52s forwards;
+}
+
+.anim-fusion.play .splash-pulse-2 {
+  border-color: #ff7a00;
+  animation: sp-sonar-wave 0.8s cubic-bezier(0.1, 0.8, 0.3, 1) 1.42s forwards;
+}
+
+.anim-fusion .sp-err-group {
+  opacity: 0;
+}
+.anim-fusion.play .sp-err-group {
+  animation: sp-fade-only 0.08s ease-out 0.76s forwards;
+}
+
+#splash-hero-text.err-slam {
+  animation: sp-err-slam-pop 0.42s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.anim-fusion .sp-sub-stencil {
+  opacity: 0;
+}
+.anim-fusion.play .sp-sub-stencil {
+  animation: sp-fade-up-micro 0.3s ease-out 1.45s forwards;
+}
+
+.anim-fusion .sp-metal-sheen {
+  transform: translateX(-520px);
+  opacity: 0;
+}
+.anim-fusion.play .sp-metal-sheen {
+  animation: sp-sheen-sweep 0.6s ease-in-out 1.52s forwards;
+}
+
+/* テレメトリーUI */
+.splash-telemetry {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  z-index: 10;
+  width: min(240px, 68vw);
+}
+
+.splash-telemetry-brand {
+  font-family: var(--font-base);
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: 2.5px;
+  color: #f0f4fc;
+  opacity: 0;
+}
+.anim-fusion.play .splash-telemetry-brand {
+  animation: sp-fade-up-micro 0.3s ease-out 0.65s forwards;
+}
+
+.splash-bar-track {
+  width: 100%;
+  height: 4px;
+  background: #1a202c;
+  border-radius: 2px;
+  overflow: hidden;
+  border: 1px solid #2b3242;
+  opacity: 0;
+}
+.anim-fusion.play .splash-bar-track {
+  animation: sp-fade-only 0.2s ease-out 0.65s forwards;
+}
+
+.splash-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #ff7a00, #ffb703);
+  box-shadow: 0 0 10px #ff7a00;
+}
+.anim-fusion.play .splash-bar-fill {
+  animation: sp-fill-bar 1.3s cubic-bezier(0.22, 1, 0.36, 1) 0.7s forwards;
+}
+
+.splash-telemetry-status {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #00d2ff;
+  letter-spacing: 1.2px;
+  height: 16px;
+  opacity: 0;
+}
+.anim-fusion.play .splash-telemetry-status {
+  animation: sp-fade-only 0.2s ease-out 0.7s forwards;
+}
+
+.splash-skip-btn {
+  position: absolute;
+  bottom: max(24px, env(safe-area-inset-bottom));
+  right: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid #3c4458;
+  color: #9aa5be;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 80;
+}
+
+.splash-skip-btn:active {
+  background: rgba(255, 122, 0, 0.2);
+  border-color: #ff7a00;
+  color: #ff7a00;
+}
+
+/* スプラッシュ専用キーフレーム */
+@keyframes sp-draw-stroke {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes sp-hex-lock-in {
+  0% { opacity: 0; transform: scale(0.8) rotate(-8deg); }
+  70% { opacity: 1; transform: scale(1.03) rotate(1deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+@keyframes sp-bolt-spin {
+  0% { transform: rotate(-90deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes sp-blue-ignite {
+  0% { opacity: 0; transform: scale(0.6); }
+  50% { opacity: 1; transform: scale(1.06); }
+  100% { opacity: 0.92; transform: scale(1); }
+}
+
+@keyframes sp-aura-pulse {
+  0% { opacity: 0; transform: scale(0.5); }
+  40% { opacity: 0.95; transform: scale(1.1); }
+  100% { opacity: 0.65; transform: scale(1); }
+}
+
+@keyframes sp-sonar-wave {
+  0% { opacity: 0.9; transform: scale(0.6); }
+  100% { opacity: 0; transform: scale(2.8); }
+}
+
+@keyframes sp-fade-up-micro {
+  0% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes sp-fade-only {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes sp-sheen-sweep {
+  0% { opacity: 0; transform: translateX(-420px); }
+  20% { opacity: 0.65; }
+  80% { opacity: 0.65; }
+  100% { opacity: 0; transform: translateX(480px); }
+}
+
+@keyframes sp-fill-bar {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+@keyframes sp-err-slam-pop {
+  0% { transform: scale(1.25); filter: brightness(2.4); }
+  45% { transform: scale(0.96); filter: brightness(1.4); }
+  100% { transform: scale(1); filter: brightness(1.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-splash * {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+  }
+  .sp-hex-chassis, .sp-err-group, .sp-turbine-glow, .sp-sub-stencil,
+  .splash-telemetry-brand, .splash-bar-track, .splash-telemetry-status {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .sp-outer-frame, .sp-hex-orange-trim {
+    stroke-dashoffset: 0 !important;
+  }
+  .splash-bar-fill {
+    width: 100% !important;
+  }
+}
+
 
 </style>
 </head>
 <body class="theme-dark">
+  <!-- オープニングスプラッシュ（1+2 融合ハイブリッドアニメーション） -->
+  <div id="app-splash" class="app-splash anim-fusion" role="presentation">
+    <div class="splash-mesh-bg"></div>
+    <div class="splash-blue-aura"></div>
+    <div class="splash-pulse-ring splash-pulse-1"></div>
+    <div class="splash-pulse-ring splash-pulse-2"></div>
+
+    <div class="splash-hero-box">
+      <svg class="splash-hero-svg" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="sp-bgPlateGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#191d26"/>
+            <stop offset="50%" stop-color="#0d1015"/>
+            <stop offset="100%" stop-color="#07090d"/>
+          </linearGradient>
+          <linearGradient id="sp-titaniumBevel" x1="15%" y1="0%" x2="85%" y2="100%">
+            <stop offset="0%" stop-color="#eef2f7"/>
+            <stop offset="25%" stop-color="#8b95a5"/>
+            <stop offset="55%" stop-color="#3c4352"/>
+            <stop offset="85%" stop-color="#7c8798"/>
+            <stop offset="100%" stop-color="#222630"/>
+          </linearGradient>
+          <linearGradient id="sp-brushedMetal" x1="0%" y1="0%" x2="100%" y2="15%">
+            <stop offset="0%" stop-color="#485060"/>
+            <stop offset="22%" stop-color="#9ca6b8"/>
+            <stop offset="48%" stop-color="#cfd6e3"/>
+            <stop offset="75%" stop-color="#7a8496"/>
+            <stop offset="100%" stop-color="#343b48"/>
+          </linearGradient>
+          <linearGradient id="sp-innerChassisGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#2e3442"/>
+            <stop offset="50%" stop-color="#171b23"/>
+            <stop offset="100%" stop-color="#262b38"/>
+          </linearGradient>
+          <radialGradient id="sp-coolantBlueGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#70e4ff" stop-opacity="1"/>
+            <stop offset="38%" stop-color="#00b4ff" stop-opacity="0.75"/>
+            <stop offset="70%" stop-color="#0055aa" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#001a33" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="sp-errFlameGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#fff3b0"/>
+            <stop offset="35%" stop-color="#ffb703"/>
+            <stop offset="75%" stop-color="#ff7a00"/>
+            <stop offset="100%" stop-color="#e84a00"/>
+          </linearGradient>
+          <linearGradient id="sp-sheenGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+            <stop offset="50%" stop-color="#ffffff" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+          </linearGradient>
+          <filter id="sp-neonOrangeGlow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="8" result="blur1"/>
+            <feGaussianBlur stdDeviation="20" result="blur2"/>
+            <feMerge>
+              <feMergeNode in="blur2"/>
+              <feMergeNode in="blur1"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+          <filter id="sp-dropShadowHeavy" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000000" flood-opacity="0.85"/>
+          </filter>
+          <pattern id="sp-iconDotsPattern" width="12" height="12" patternUnits="userSpaceOnUse">
+            <circle cx="6" cy="6" r="1.4" fill="#000000" opacity="0.55"/>
+          </pattern>
+          <pattern id="sp-hairlinePattern" width="8" height="3" patternUnits="userSpaceOnUse">
+            <line x1="0" y1="0" x2="8" y2="0" stroke="#ffffff" stroke-width="0.6" opacity="0.1"/>
+            <line x1="0" y1="1.5" x2="8" y2="1.5" stroke="#000000" stroke-width="0.6" opacity="0.12"/>
+          </pattern>
+          <pattern id="sp-knurlPattern" width="6" height="6" patternUnits="userSpaceOnUse">
+            <path d="M 0 0 L 6 6 M 6 0 L 0 6" stroke="#181b22" stroke-width="1.3"/>
+          </pattern>
+          <clipPath id="sp-hexClip">
+            <polygon points="256,42 448,148 448,364 256,470 64,364 64,148"/>
+          </clipPath>
+        </defs>
+
+        <!-- 台座 -->
+        <rect x="16" y="16" width="480" height="480" rx="106" fill="url(#sp-bgPlateGrad)"/>
+        <rect x="16" y="16" width="480" height="480" rx="106" fill="url(#sp-iconDotsPattern)"/>
+
+        <!-- 外周オレンジ枠 -->
+        <rect class="sp-outer-frame" x="28" y="28" width="456" height="456" rx="96"
+              fill="none" stroke="#ff7a00" stroke-width="11"
+              style="filter: drop-shadow(0 0 8px rgba(255,122,0,0.7));"/>
+
+        <!-- 六角形チタン装甲コア -->
+        <g class="sp-hex-chassis" filter="url(#sp-dropShadowHeavy)">
+          <path d="M52,185 L70,175 L70,337 L52,327 Z" fill="#707a8d" stroke="#222630" stroke-width="2"/>
+          <path d="M52,185 L70,175 L70,337 L52,327 Z" fill="url(#sp-knurlPattern)"/>
+          <path d="M460,185 L442,175 L442,337 L460,327 Z" fill="#707a8d" stroke="#222630" stroke-width="2"/>
+          <path d="M460,185 L442,175 L442,337 L460,327 Z" fill="url(#sp-knurlPattern)"/>
+
+          <polygon points="256,34 456,144 456,368 256,478 56,368 56,144"
+                   fill="url(#sp-titaniumBevel)" stroke="#11141a" stroke-width="3"/>
+          <polygon points="256,50 440,152 440,360 256,462 72,360 72,152"
+                   fill="url(#sp-innerChassisGrad)" stroke="#090b0f" stroke-width="2"/>
+
+          <polygon class="sp-hex-orange-trim"
+                   points="256,58 432,156 432,356 256,454 80,356 80,156"
+                   fill="none" stroke="#ff7a00" stroke-width="4" stroke-linejoin="round"
+                   style="filter: drop-shadow(0 0 4px rgba(255,122,0,0.8));"/>
+
+          <!-- 冷媒ブルー発光＆タービン放射 -->
+          <g class="sp-turbine-glow" clip-path="url(#sp-hexClip)">
+            <circle cx="256" cy="256" r="195" fill="url(#sp-coolantBlueGlow)"/>
+            <g opacity="0.45" stroke="#80ebff" stroke-width="10">
+              <line x1="256" y1="256" x2="256" y2="50"/>
+              <line x1="256" y1="256" x2="360" y2="80"/>
+              <line x1="256" y1="256" x2="152" y2="80"/>
+              <line x1="256" y1="256" x2="256" y2="462"/>
+              <line x1="256" y1="256" x2="360" y2="432"/>
+              <line x1="256" y1="256" x2="152" y2="432"/>
+            </g>
+          </g>
+
+          <!-- 通気ルーバー -->
+          <g fill="#0c0f14" stroke="#454d5e" stroke-width="1.5">
+            <polygon points="220,90 292,90 315,104 197,104"/>
+            <polygon points="175,118 337,118 355,132 157,132"/>
+            <polygon points="135,146 377,146 390,160 122,160"/>
+            <polygon points="122,352 390,352 377,366 135,366"/>
+            <polygon points="157,380 355,380 337,394 175,394"/>
+            <polygon points="197,408 315,408 292,422 220,422"/>
+          </g>
+
+          <!-- 中央ブラッシュドチタンプレート -->
+          <polygon points="90,180 422,180 434,256 422,332 90,332 78,256"
+                   fill="url(#sp-brushedMetal)" stroke="#1b2029" stroke-width="3"/>
+          <polygon points="90,180 422,180 434,256 422,332 90,332 78,256"
+                   fill="url(#sp-hairlinePattern)"/>
+          <line x1="94" y1="184" x2="418" y2="184" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+          <line x1="94" y1="329" x2="418" y2="329" stroke="rgba(0,0,0,0.6)" stroke-width="2"/>
+
+          <!-- 精密マイクロ刻印 -->
+          <g fill="#1c222d" opacity="0.88">
+            <rect x="104" y="190" width="28" height="4" rx="1"/>
+            <rect x="104" y="197" width="18" height="3" rx="1"/>
+            <circle cx="139" cy="193" r="2.1"/>
+            <circle cx="147" cy="193" r="2.1"/>
+            <circle cx="155" cy="193" r="2.1"/>
+            <rect x="356" y="190" width="16" height="4.5" rx="1"/>
+            <rect x="376" y="190" width="26" height="4.5" rx="1"/>
+            <text x="356" y="203" font-family="JetBrains Mono, monospace" font-size="7" font-weight="900">SYS-HV07</text>
+          </g>
+
+          <!-- 六角穴付きボルト -->
+          <g class="sp-bolt sp-bolt-left">
+            <circle cx="108" cy="256" r="14" fill="#2c3340" stroke="#7a8496" stroke-width="2"/>
+            <polygon points="108,247 116,251.5 116,260.5 108,265 100,260.5 100,251.5" fill="#0d1015"/>
+          </g>
+          <g class="sp-bolt sp-bolt-right">
+            <circle cx="404" cy="256" r="14" fill="#2c3340" stroke="#7a8496" stroke-width="2"/>
+            <polygon points="404,247 412,251.5 412,260.5 404,265 396,260.5 396,251.5" fill="#0d1015"/>
+          </g>
+
+          <!-- コードフラッシュ ➔ ERRロックテキスト -->
+          <g class="sp-err-group" filter="url(#sp-neonOrangeGlow)">
+            <text id="splash-hero-text" x="256" y="282"
+                  text-anchor="middle"
+                  font-family="Chakra Petch, sans-serif"
+                  font-size="104"
+                  font-weight="900"
+                  letter-spacing="4"
+                  fill="url(#sp-errFlameGrad)"
+                  stroke="#ff6200"
+                  stroke-width="2.5">ERR</text>
+          </g>
+
+          <text class="sp-sub-stencil" x="256" y="317"
+                text-anchor="middle"
+                font-family="JetBrains Mono, monospace"
+                font-size="13.5"
+                font-weight="900"
+                letter-spacing="1.6"
+                fill="#161a22">DIAGNOSTIC UNIT // HVAC PRO</text>
+
+          <g clip-path="url(#sp-hexClip)">
+            <polygon class="sp-metal-sheen" points="0,0 90,0 -30,512 -120,512" fill="url(#sp-sheenGrad)"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <div class="splash-telemetry">
+      <div class="splash-telemetry-brand">HVAC ANALYZER</div>
+      <div class="splash-bar-track">
+        <div class="splash-bar-fill"></div>
+      </div>
+      <div class="splash-telemetry-status" id="splash-status">BUILDING CHASSIS...</div>
+    </div>
+
+    <button type="button" class="splash-skip-btn" id="btn-skip-splash">SKIP ⏭</button>
+  </div>
+
   <div class="app-container">
     <!-- ヘッダー -->
     <header class="app-header">
@@ -7592,6 +8106,7 @@ const KEYPAD_KEYS = [...KEYPAD_ALPHA_KEYS, ...KEYPAD_NUM_KEYS];
 
   // 初期化
   function init() {
+    startOpeningSplash();
     loadSettings();
     renderMakerTabs();
     renderKeypad();
@@ -7601,6 +8116,82 @@ const KEYPAD_KEYS = [...KEYPAD_ALPHA_KEYS, ...KEYPAD_NUM_KEYS];
     updateThemeUI();
     updateFavCount();
     performSearch();
+  }
+
+  // オープニングスプラッシュ制御（1+2 融合ハイブリッドアニメーション）
+  function startOpeningSplash() {
+    const splashEl = document.getElementById("app-splash");
+    const heroText = document.getElementById("splash-hero-text");
+    const statusText = document.getElementById("splash-status");
+    const skipBtn = document.getElementById("btn-skip-splash");
+    if (!splashEl) return;
+
+    const totalCodes = typeof ERROR_DATABASE !== "undefined" ? ERROR_DATABASE.length : 181;
+    const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const timers = [];
+    let isClosed = false;
+
+    function finishSplash() {
+      if (isClosed) return;
+      isClosed = true;
+      timers.forEach((id) => clearTimeout(id));
+      splashEl.classList.add("fade-out");
+      splashEl.setAttribute("aria-hidden", "true");
+      setTimeout(() => {
+        splashEl.classList.add("hidden");
+      }, 480);
+    }
+
+    if (skipBtn) {
+      skipBtn.addEventListener("click", finishSplash);
+    }
+
+    if (prefersReduced) {
+      if (statusText) statusText.textContent = `DIAGNOSTIC UNIT READY (${totalCodes})`;
+      timers.push(setTimeout(finishSplash, 450));
+      return;
+    }
+
+    requestAnimationFrame(() => {
+      splashEl.classList.add("play");
+
+      const statusSteps = [
+        { t: 0, msg: "BUILDING CHASSIS..." },
+        { t: 480, msg: "COOLANT CORE IGNITED" },
+        { t: 760, msg: `SCANNING ${totalCodes} CODES...` },
+        { t: 1420, msg: "DIAGNOSTIC UNIT READY" }
+      ];
+      statusSteps.forEach((st) => {
+        timers.push(setTimeout(() => {
+          if (statusText) statusText.textContent = st.msg;
+        }, st.t));
+      });
+
+      if (heroText) {
+        const seq = [
+          { code: "A1",  t: 760,  fill: "#00e5ff", stroke: "#0077b6" },
+          { code: "E04", t: 855,  fill: "#00e5ff", stroke: "#0077b6" },
+          { code: "P29", t: 950,  fill: "#70f0ff", stroke: "#0096c7" },
+          { code: "H19", t: 1045, fill: "#00e5ff", stroke: "#0077b6" },
+          { code: "U4",  t: 1140, fill: "#70f0ff", stroke: "#0096c7" },
+          { code: "08",  t: 1235, fill: "#00e5ff", stroke: "#0077b6" },
+          { code: "L5",  t: 1330, fill: "#ffb703", stroke: "#e85d04" },
+          { code: "ERR", t: 1420, fill: "url(#sp-errFlameGrad)", stroke: "#ff6200", slam: true }
+        ];
+        seq.forEach((step) => {
+          timers.push(setTimeout(() => {
+            heroText.textContent = step.code;
+            heroText.setAttribute("fill", step.fill);
+            heroText.setAttribute("stroke", step.stroke);
+            if (step.slam) {
+              heroText.classList.add("err-slam");
+            }
+          }, step.t));
+        });
+      }
+
+      timers.push(setTimeout(finishSplash, 2350));
+    });
   }
 
   // 設定読み込み（LocalStorage）

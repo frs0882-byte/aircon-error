@@ -48,6 +48,7 @@
 
   // 初期化
   function init() {
+    startOpeningSplash();
     loadSettings();
     renderMakerTabs();
     renderKeypad();
@@ -57,6 +58,82 @@
     updateThemeUI();
     updateFavCount();
     performSearch();
+  }
+
+  // オープニングスプラッシュ制御（1+2 融合ハイブリッドアニメーション）
+  function startOpeningSplash() {
+    const splashEl = document.getElementById("app-splash");
+    const heroText = document.getElementById("splash-hero-text");
+    const statusText = document.getElementById("splash-status");
+    const skipBtn = document.getElementById("btn-skip-splash");
+    if (!splashEl) return;
+
+    const totalCodes = typeof ERROR_DATABASE !== "undefined" ? ERROR_DATABASE.length : 181;
+    const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const timers = [];
+    let isClosed = false;
+
+    function finishSplash() {
+      if (isClosed) return;
+      isClosed = true;
+      timers.forEach((id) => clearTimeout(id));
+      splashEl.classList.add("fade-out");
+      splashEl.setAttribute("aria-hidden", "true");
+      setTimeout(() => {
+        splashEl.classList.add("hidden");
+      }, 480);
+    }
+
+    if (skipBtn) {
+      skipBtn.addEventListener("click", finishSplash);
+    }
+
+    if (prefersReduced) {
+      if (statusText) statusText.textContent = `DIAGNOSTIC UNIT READY (${totalCodes})`;
+      timers.push(setTimeout(finishSplash, 450));
+      return;
+    }
+
+    requestAnimationFrame(() => {
+      splashEl.classList.add("play");
+
+      const statusSteps = [
+        { t: 0, msg: "BUILDING CHASSIS..." },
+        { t: 480, msg: "COOLANT CORE IGNITED" },
+        { t: 760, msg: `SCANNING ${totalCodes} CODES...` },
+        { t: 1420, msg: "DIAGNOSTIC UNIT READY" }
+      ];
+      statusSteps.forEach((st) => {
+        timers.push(setTimeout(() => {
+          if (statusText) statusText.textContent = st.msg;
+        }, st.t));
+      });
+
+      if (heroText) {
+        const seq = [
+          { code: "A1",  t: 760,  fill: "#00e5ff", stroke: "#0077b6" },
+          { code: "E04", t: 855,  fill: "#00e5ff", stroke: "#0077b6" },
+          { code: "P29", t: 950,  fill: "#70f0ff", stroke: "#0096c7" },
+          { code: "H19", t: 1045, fill: "#00e5ff", stroke: "#0077b6" },
+          { code: "U4",  t: 1140, fill: "#70f0ff", stroke: "#0096c7" },
+          { code: "08",  t: 1235, fill: "#00e5ff", stroke: "#0077b6" },
+          { code: "L5",  t: 1330, fill: "#ffb703", stroke: "#e85d04" },
+          { code: "ERR", t: 1420, fill: "url(#sp-errFlameGrad)", stroke: "#ff6200", slam: true }
+        ];
+        seq.forEach((step) => {
+          timers.push(setTimeout(() => {
+            heroText.textContent = step.code;
+            heroText.setAttribute("fill", step.fill);
+            heroText.setAttribute("stroke", step.stroke);
+            if (step.slam) {
+              heroText.classList.add("err-slam");
+            }
+          }, step.t));
+        });
+      }
+
+      timers.push(setTimeout(finishSplash, 2350));
+    });
   }
 
   // 設定読み込み（LocalStorage）

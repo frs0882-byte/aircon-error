@@ -1311,3 +1311,321 @@ body.theme-light .symptom-drum-select option {
   box-shadow: var(--shadow-key-pressed);
 }
 
+/* ==========================================================================
+   オープニングスプラッシュ（1+2 融合ハイブリッドアニメーション）
+   ========================================================================== */
+.app-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #07090d;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1), transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.app-splash.fade-out {
+  opacity: 0;
+  transform: scale(1.06);
+  pointer-events: none;
+}
+
+.app-splash.hidden {
+  display: none !important;
+}
+
+.splash-mesh-bg {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 10px 10px;
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.splash-blue-aura {
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 210, 255, 0.25) 0%, rgba(0, 119, 182, 0.08) 45%, transparent 72%);
+  filter: blur(18px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.splash-pulse-ring {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border: 2px solid #00d2ff;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.splash-hero-box {
+  position: relative;
+  width: min(230px, 58vw);
+  height: min(230px, 58vw);
+  z-index: 10;
+}
+
+.splash-hero-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.sp-hex-chassis,
+.sp-turbine-glow {
+  transform-box: view-box;
+  transform-origin: 256px 256px;
+}
+
+.sp-bolt,
+#splash-hero-text {
+  transform-box: fill-box;
+  transform-origin: center center;
+}
+
+/* FUSION アニメーション状態 */
+.anim-fusion .sp-outer-frame {
+  stroke-dasharray: 1800;
+  stroke-dashoffset: 1800;
+}
+.anim-fusion.play .sp-outer-frame {
+  animation: sp-draw-stroke 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.anim-fusion .sp-hex-chassis {
+  opacity: 0;
+  transform: scale(0.8);
+}
+.anim-fusion.play .sp-hex-chassis {
+  animation: sp-hex-lock-in 0.48s cubic-bezier(0.34, 1.56, 0.64, 1) 0.16s forwards;
+}
+
+.anim-fusion .sp-hex-orange-trim {
+  stroke-dasharray: 1400;
+  stroke-dashoffset: 1400;
+}
+.anim-fusion.play .sp-hex-orange-trim {
+  animation: sp-draw-stroke 0.52s ease-out 0.3s forwards;
+}
+
+.anim-fusion.play .sp-bolt-left,
+.anim-fusion.play .sp-bolt-right {
+  animation: sp-bolt-spin 0.38s ease-out 0.42s forwards;
+}
+
+.anim-fusion .sp-turbine-glow {
+  opacity: 0;
+  transform: scale(0.6);
+}
+.anim-fusion.play .sp-turbine-glow {
+  animation: sp-blue-ignite 0.55s ease-out 0.5s forwards;
+}
+
+.anim-fusion.play .splash-blue-aura {
+  animation: sp-aura-pulse 1.5s ease-out 0.45s forwards;
+}
+
+.anim-fusion.play .splash-pulse-1 {
+  animation: sp-sonar-wave 0.75s cubic-bezier(0.1, 0.8, 0.3, 1) 0.52s forwards;
+}
+
+.anim-fusion.play .splash-pulse-2 {
+  border-color: #ff7a00;
+  animation: sp-sonar-wave 0.8s cubic-bezier(0.1, 0.8, 0.3, 1) 1.42s forwards;
+}
+
+.anim-fusion .sp-err-group {
+  opacity: 0;
+}
+.anim-fusion.play .sp-err-group {
+  animation: sp-fade-only 0.08s ease-out 0.76s forwards;
+}
+
+#splash-hero-text.err-slam {
+  animation: sp-err-slam-pop 0.42s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.anim-fusion .sp-sub-stencil {
+  opacity: 0;
+}
+.anim-fusion.play .sp-sub-stencil {
+  animation: sp-fade-up-micro 0.3s ease-out 1.45s forwards;
+}
+
+.anim-fusion .sp-metal-sheen {
+  transform: translateX(-520px);
+  opacity: 0;
+}
+.anim-fusion.play .sp-metal-sheen {
+  animation: sp-sheen-sweep 0.6s ease-in-out 1.52s forwards;
+}
+
+/* テレメトリーUI */
+.splash-telemetry {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  z-index: 10;
+  width: min(240px, 68vw);
+}
+
+.splash-telemetry-brand {
+  font-family: var(--font-base);
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: 2.5px;
+  color: #f0f4fc;
+  opacity: 0;
+}
+.anim-fusion.play .splash-telemetry-brand {
+  animation: sp-fade-up-micro 0.3s ease-out 0.65s forwards;
+}
+
+.splash-bar-track {
+  width: 100%;
+  height: 4px;
+  background: #1a202c;
+  border-radius: 2px;
+  overflow: hidden;
+  border: 1px solid #2b3242;
+  opacity: 0;
+}
+.anim-fusion.play .splash-bar-track {
+  animation: sp-fade-only 0.2s ease-out 0.65s forwards;
+}
+
+.splash-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #ff7a00, #ffb703);
+  box-shadow: 0 0 10px #ff7a00;
+}
+.anim-fusion.play .splash-bar-fill {
+  animation: sp-fill-bar 1.3s cubic-bezier(0.22, 1, 0.36, 1) 0.7s forwards;
+}
+
+.splash-telemetry-status {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #00d2ff;
+  letter-spacing: 1.2px;
+  height: 16px;
+  opacity: 0;
+}
+.anim-fusion.play .splash-telemetry-status {
+  animation: sp-fade-only 0.2s ease-out 0.7s forwards;
+}
+
+.splash-skip-btn {
+  position: absolute;
+  bottom: max(24px, env(safe-area-inset-bottom));
+  right: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid #3c4458;
+  color: #9aa5be;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 80;
+}
+
+.splash-skip-btn:active {
+  background: rgba(255, 122, 0, 0.2);
+  border-color: #ff7a00;
+  color: #ff7a00;
+}
+
+/* スプラッシュ専用キーフレーム */
+@keyframes sp-draw-stroke {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes sp-hex-lock-in {
+  0% { opacity: 0; transform: scale(0.8) rotate(-8deg); }
+  70% { opacity: 1; transform: scale(1.03) rotate(1deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+@keyframes sp-bolt-spin {
+  0% { transform: rotate(-90deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes sp-blue-ignite {
+  0% { opacity: 0; transform: scale(0.6); }
+  50% { opacity: 1; transform: scale(1.06); }
+  100% { opacity: 0.92; transform: scale(1); }
+}
+
+@keyframes sp-aura-pulse {
+  0% { opacity: 0; transform: scale(0.5); }
+  40% { opacity: 0.95; transform: scale(1.1); }
+  100% { opacity: 0.65; transform: scale(1); }
+}
+
+@keyframes sp-sonar-wave {
+  0% { opacity: 0.9; transform: scale(0.6); }
+  100% { opacity: 0; transform: scale(2.8); }
+}
+
+@keyframes sp-fade-up-micro {
+  0% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes sp-fade-only {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes sp-sheen-sweep {
+  0% { opacity: 0; transform: translateX(-420px); }
+  20% { opacity: 0.65; }
+  80% { opacity: 0.65; }
+  100% { opacity: 0; transform: translateX(480px); }
+}
+
+@keyframes sp-fill-bar {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+@keyframes sp-err-slam-pop {
+  0% { transform: scale(1.25); filter: brightness(2.4); }
+  45% { transform: scale(0.96); filter: brightness(1.4); }
+  100% { transform: scale(1); filter: brightness(1.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-splash * {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+  }
+  .sp-hex-chassis, .sp-err-group, .sp-turbine-glow, .sp-sub-stencil,
+  .splash-telemetry-brand, .splash-bar-track, .splash-telemetry-status {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .sp-outer-frame, .sp-hex-orange-trim {
+    stroke-dashoffset: 0 !important;
+  }
+  .splash-bar-fill {
+    width: 100% !important;
+  }
+}
+

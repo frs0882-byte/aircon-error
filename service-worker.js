@@ -1,11 +1,16 @@
-const CACHE_NAME = 'hvac-error-cache-v1';
+const CACHE_NAME = 'hvac-error-cache-v2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './styles.css',
   './app.js',
   './error-data.js',
-  './manifest.json'
+  './qrcode.min.js',
+  './manifest.json',
+  './icon-192.png',
+  './icon-512.png',
+  './apple-touch-icon.png',
+  './app-icon-header.png'
 ];
 
 self.addEventListener('install', (event) => {
@@ -30,12 +35,23 @@ self.addEventListener('activate', (event) => {
   );
 });
 
+// Network-First戦略（オンライン時は最新を取得してキャッシュ更新、圏外・オフライン時はキャッシュから即時起動）
 self.addEventListener('fetch', (event) => {
+  if (event.request.method !== 'GET') return;
+
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
+    fetch(event.request).then((networkResponse) => {
+      if (networkResponse && networkResponse.status === 200 && event.request.url.startsWith(self.location.origin)) {
+        const resClone = networkResponse.clone();
+        caches.open(CACHE_NAME).then((cache) => {
+          cache.put(event.request, resClone);
+        });
+      }
+      return networkResponse;
     }).catch(() => {
-      return caches.match('./index.html');
+      return caches.match(event.request).then((cachedResponse) => {
+        return cachedResponse || caches.match('./index.html');
+      });
     })
   );
 });
